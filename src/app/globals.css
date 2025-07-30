@@ -1,0 +1,85 @@
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+html {
+  overflow: inherit;
+}
+body {
+  font-family: "Krub", Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.embla {
+  overflow: hidden;
+}
+.embla__container {
+  display: flex;
+}
+.embla__slide {
+  flex: 0 0 100%;
+  min-width: 0;
+  user-select: none !important;
+}
+
+.embla__container {
+  display: flex;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -khtml-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  will-change: transform;
+}
+
+.embla__slide {
+  position: relative;
+  min-width: 0;
+  scroll-snap-align: start;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 50px #f9eeeb inset; /* Change the color to your own background color */
+  -webkit-text-fill-color: inherit;
+}
+
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 50px #f9eeeb inset;
+  -webkit-text-fill-color: inherit;
+}
+
+.customScroll {
+  --sb-track-color: #eac2b9;
+  --sb-thumb-color: #c65c43;
+  --sb-size: 5px;
+}
+
+.customScroll::-webkit-scrollbar {
+  width: var(--sb-size);
+}
+
+.customScroll::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 50px;
+}
+
+.customScroll::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 50px;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  .customScroll {
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+  }
+}
