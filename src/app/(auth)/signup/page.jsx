@@ -1,10 +1,10 @@
-import { Heading, Image, Link } from "@/components/atoms";
-import { LoginForm, PageWrapper } from "@/components/organisms";
+import { Heading, Image } from "@/components/atoms";
+import { PageWrapper, SignupForm } from "@/components/organisms";
 import { COMPANY_NAME } from "@/config";
 import { Box, VStack } from "@chakra-ui/react";
 import Script from "next/script";
 
-export default function LoginPage() {
+export default function SignUpPage() {
   const backgroundGradient = `
  linear-gradient(to right, #FBE9E7 0%, 26.610645651817322%, #F4CBC5 53.221291303634644%, 76.61064565181732%, #FAE7E3 100%);
 `;
@@ -52,19 +52,7 @@ export default function LoginPage() {
               p={{ base: 6, md: 8 }}
               px={{ base: 4, sm: 4, md: 8 }}
             >
-              <LoginForm />
-              <Box
-                mx={"auto"}
-                w={"full"}
-                textAlign={"end"}
-                textStyle={"sm"}
-                mt={6}
-              >
-                Don't have an account?{" "}
-                <Link href={"/signup"} stopOutlineOnFocus>
-                  Sign up
-                </Link>
-              </Box>
+              <SignupForm />
             </Box>
           </VStack>
         </Box>

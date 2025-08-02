@@ -11,7 +11,7 @@ export const COMPANY_ROUTES = [
   { name: "About us", path: "/about" },
   { name: "Policy", path: "/policy" },
   { name: "Contact", path: "/contact" },
-  { name: "Sign up", path: "/sign-up" },
+  { name: "Sign up", path: "/signup" },
 ];
 export const MOCK_ITEMS = [
   // Products

@@ -1,4 +1,10 @@
-import { AppleIcon, Button, GoogleIcon, MetaIcon } from "@/components/atoms";
+import {
+  AppleIcon,
+  Button,
+  GoogleIcon,
+  GoogleSocialAuth,
+  MetaIcon,
+} from "@/components/atoms";
 import { HStack, useBreakpointValue } from "@chakra-ui/react";
 
 export default function SocialLogin() {
@@ -9,19 +15,7 @@ export default function SocialLogin() {
       w="full"
       gap={{ base: 3, sm: 4, md: 6 }}
     >
-      <Button
-        icon
-        color="rose.50"
-        boxSize={"fit"}
-        p={3}
-        fontWeight="bold"
-        rounded="xl"
-        border="1px solid"
-        borderColor="rose.500"
-      >
-        <GoogleIcon size="xl" color="rose.50" />
-      </Button>
-
+      <GoogleSocialAuth />
       <Button
         icon
         bg="rose.50"
@@ -34,7 +28,6 @@ export default function SocialLogin() {
       >
         <AppleIcon />
       </Button>
-
       <Button
         icon
         bg="rose.50"
