@@ -27,7 +27,7 @@ const sections = [
         on product availability and destination. Custom or handmade wedding
         items may require extra processing time. You'll receive tracking details
         as soon as your order ships and you are always welcome to{" "}
-        <Link href={"/contact"} stopOutlineOnFocus textDecoration="none">
+        <Link href={"/contact"} textDecoration="none">
           contact us
         </Link>{" "}
         regarding any questions you may have.
@@ -109,9 +109,20 @@ export default function PolicyPage() {
         {/* Closing */}
         <Box textAlign="center" pt={8}>
           <Divider mb={4} />
-          <Text fontSize="sm" color="gray.500">
+          <Text textStyle="sm" color="gray.500">
             Last updated: July 30, 2025
           </Text>
+          <Link
+            textDecoration="none"
+            _hover={{
+              textDecoration: "underline",
+              textUnderlineOffset: "4px",
+            }}
+            textStyle="sm"
+            href={"/shop"}
+          >
+            go back to shop
+          </Link>
         </Box>
       </Stack>
     </PageWrapper>

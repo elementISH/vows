@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/atoms";
+import { Button, Link } from "@/components/atoms";
 import {
   AddressActions,
   AddressDialog,
@@ -31,7 +31,7 @@ export default function AccountPage() {
     } else {
       setAddresses((prev) => [
         ...prev,
-        { ...addr, id: Date.now().toString(), label: addr.street },
+        { ...addr, id: Math.random(), label: addr.street },
       ]);
     }
     setDialogOpen(false);
@@ -126,8 +126,15 @@ export default function AccountPage() {
                   <Text textStyle="lg" fontWeight="500" textAlign="center">
                     View and track your orders
                   </Text>
-                  <Button rounded="xl" minW={"2xs"}>
-                    Check order history
+                  <Button rounded="xl" minW={"2xs"} asChild>
+                    <Link
+                      color="text-white"
+                      textDecoration="none"
+                      href={"/history"}
+                    >
+                      {" "}
+                      Check order history
+                    </Link>
                   </Button>
                 </VStack>
               </Flex>

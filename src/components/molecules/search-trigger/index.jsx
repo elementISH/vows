@@ -104,11 +104,11 @@ export default function SearchTrigger() {
                             <Text fontWeight="bold" color={"rose.500"}>
                               {highlight(item.name, query)}
                             </Text>
-                            <Text fontSize="sm" color="gray.600">
+                            <Text textStyle="sm" color="gray.600">
                               {highlight(item.description, query)}
                             </Text>
                             <Text
-                              fontSize="xs"
+                              textStyle="xs"
                               mt={1}
                               color="gray.500"
                               fontStyle="italic"

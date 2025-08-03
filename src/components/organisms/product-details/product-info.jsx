@@ -47,7 +47,7 @@ export default function ProductInfo({ isMobile = false, editEl }) {
               fill={
                 i < Math.round(starCount)
                   ? "#FFC229"
-                  : "var(--chakra-colors-bg)"
+                  : "var(--chakra-colors-bg-color)"
               }
             />
           ))}
@@ -88,6 +88,7 @@ export default function ProductInfo({ isMobile = false, editEl }) {
       {isMobile && (
         <Button
           rounded={"full"}
+          px="8"
           onClick={() => editEl?.current?.scrollIntoView(true)}
         >
           Start customizing

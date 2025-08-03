@@ -42,6 +42,7 @@ export default function Form({
   formOptions = {},
   submitText = "Submit",
   wrapperStyles = {},
+  limitHeight,
 }) {
   const form = useAppForm({
     defaultValues,
@@ -57,7 +58,16 @@ export default function Form({
       }}
       style={{ width: "100%", ...wrapperStyles }}
     >
-      {typeof children === "function" ? children(form) : children}
+      {limitHeight ? (
+        <Box h={"90%"}>
+          {typeof children === "function" ? children(form) : children}
+        </Box>
+      ) : typeof children === "function" ? (
+        children(form)
+      ) : (
+        children
+      )}
+      {}
       <form.AppForm>
         <form.SubmitButton>{submitText}</form.SubmitButton>
       </form.AppForm>

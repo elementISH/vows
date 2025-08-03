@@ -14,12 +14,7 @@ export default function ProductPage() {
   return (
     <PageWrapper px={{ base: 4, sm: 4, md: 8 }} position={"relative"}>
       <Section wrapperStyles={{ py: { base: 8, md: 12 } }}>
-        <ProductDetails
-          imagesByColor={{
-            red: ["/test_image.png", "/test_image.png"],
-            blue: ["/test_category.png", "/test_category.png"],
-          }}
-        />
+        <ProductDetails />
       </Section>
       <Section heading="Similar Products">
         {[0, 1].map((_, i) => (

@@ -21,7 +21,6 @@ import {
   Heading,
 } from "@/components/atoms";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 
 export default function ProductCard({
   id,
@@ -37,7 +36,6 @@ export default function ProductCard({
   const [selectedColor, setSelectedColor] = useState(null);
 
   const handleLike = () => setLiked(!liked);
-  const router = useRouter();
 
   const imageHeight = useBreakpointValue({
     base: "200px",
@@ -57,19 +55,19 @@ export default function ProductCard({
       w={{ base: "3xs", sm: "2xs", md: "xs" }}
     >
       <Box position="relative" minH={imageHeight} maxH={imageHeight}>
-        <Image
-          src={image}
-          alt={title}
-          nextProps={imageProps}
-          chakraProps={{
-            w: "full",
-            h: "100%",
-            objectFit: "cover",
-            cursor: "pointer",
-            onClick: () => router.push(`/product/${id}`),
-          }}
-        />
-
+        <Link href={`/product/${id}`}>
+          <Image
+            src={image}
+            alt={title}
+            nextProps={imageProps}
+            chakraProps={{
+              w: "full",
+              h: "100%",
+              objectFit: "cover",
+              cursor: "pointer",
+            }}
+          />
+        </Link>
         <Box position="absolute" bottom={2} left={2} zIndex={2}>
           <WishlistButton onClick={handleLike} isFilled={liked} />
         </Box>
@@ -88,12 +86,7 @@ export default function ProductCard({
             WebkitBackdropFilter: "blur(10px)",
           }}
         >
-          <Link
-            href={`/product/${id}`}
-            textStyle="xs"
-            fontWeight="bold"
-            stopOutlineOnFocus
-          >
+          <Link href={`/product/${id}`} textStyle="xs" fontWeight="bold">
             View details
           </Link>
         </Box>
@@ -164,7 +157,6 @@ export default function ProductCard({
           >
             <Link
               href={`/product/${id}`}
-              stopOutlineOnFocus
               textDecoration="none"
               color="text-white"
               textStyle="sm"

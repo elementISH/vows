@@ -1,8 +1,8 @@
 "use client";
 
 import { z } from "zod";
-import { HStack, Stack } from "@chakra-ui/react";
-import { Divider, Input } from "@/components/atoms";
+import { Box, HStack, Stack } from "@chakra-ui/react";
+import { Divider, Input, Link } from "@/components/atoms";
 import { useState } from "react";
 import { CountrySelector, Form, SocialLogin } from "@/components/molecules";
 import { zodFieldValidator } from "@/utils/functions";
@@ -201,6 +201,12 @@ export default function SignupForm() {
                 />
               )}
             </form.Field>
+            <Box textStyle={"sm"} textAlign={"end"}>
+              Already have an account?{" "}
+              <Link href="/login" textStyle="sm">
+                Login
+              </Link>
+            </Box>
           </>
         )}
       </Form>

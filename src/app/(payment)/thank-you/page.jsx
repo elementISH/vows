@@ -1,4 +1,4 @@
-import { Button, Heading } from "@/components/atoms";
+import { Button, Heading, Link } from "@/components/atoms";
 import { Invoice, Section } from "@/components/molecules";
 import { PageWrapper } from "@/components/organisms";
 import { Box, Flex, VStack, DataList } from "@chakra-ui/react";
@@ -84,8 +84,11 @@ export default function ThankYouPage() {
               maxW={"100%"}
               alignItems="center"
               gap={2}
+              asChild
             >
-              <Crosshair size={18} /> Track order
+              <Link href="/history" color="text-white" textDecoration="none">
+                <Crosshair size={18} /> Track order
+              </Link>
             </Button>
           </VStack>
         </VStack>

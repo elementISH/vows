@@ -1,12 +1,16 @@
+"use client";
+
+import { useNavigationGuard } from "@/site-config/navigation-guard";
 import { Link as ChakraLink } from "@chakra-ui/react";
 import NextLink from "next/link";
 export default function Link({
   href,
   children,
-  stopOutlineOnFocus,
+  stopOutlineOnFocus = true,
   nextProps = {},
   ...props
 }) {
+  const { shouldBlock } = useNavigationGuard();
   return (
     <ChakraLink
       asChild
@@ -20,7 +24,13 @@ export default function Link({
       }
       {...props}
     >
-      <NextLink href={href} {...nextProps}>
+      <NextLink
+        href={href}
+        {...nextProps}
+        onNavigate={(e) => {
+          if (shouldBlock) e.preventDefault();
+        }}
+      >
         {children}
       </NextLink>
     </ChakraLink>

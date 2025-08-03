@@ -13,7 +13,7 @@ import {
   Checkbox,
   Fieldset,
 } from "@chakra-ui/react";
-import { Check, Star } from "lucide-react";
+import { Check, SlidersHorizontal, Star } from "lucide-react";
 import { Input, Drawer } from "@/components/atoms";
 import { Form } from "@/components/molecules";
 import { useState } from "react";
@@ -68,6 +68,7 @@ export default function AdvancedFilter() {
     <Drawer
       size={{ base: "full", sm: "sm", md: "md", lg: "md", xl: "md" }}
       isOpen={isOpen}
+      bodyStyles={{ overflowY: "hidden", pb: 0 }}
       onOpenChange={setIsOpen}
       title="Filter Products"
       trigger={
@@ -78,10 +79,10 @@ export default function AdvancedFilter() {
           justifyContent={{ base: "flex-end" }}
           onClick={() => setIsOpen(true)}
         >
-          Filter products
+          Filter products <SlidersHorizontal size={18} />
         </HStack>
       }
-      footer={null}
+      footer={<></>}
     >
       <AdvancedFilterForm />
     </Drawer>

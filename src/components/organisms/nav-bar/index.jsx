@@ -70,7 +70,6 @@ export default function Navbar() {
                   textStyle="sm"
                   color="gray.700"
                   textDecoration="none"
-                  stopOutlineOnFocus
                   _hover={{ textDecoration: "underline" }}
                 >
                   {route.name}

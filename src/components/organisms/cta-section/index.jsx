@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Heading, SnakeSvg } from "@/components/atoms";
+import { Button, Heading, Link, SnakeSvg } from "@/components/atoms";
 import { CategoryCard, Section } from "@/components/molecules";
 import {
   Box,
@@ -122,8 +122,11 @@ export default function CtaSection() {
           lg: "2xl",
         }}
         px={{ base: 4, sm: 24, md: 12, lg: 20, xl: 24 }}
+        asChild
       >
-        Shop Now
+        <Link color="text-white" textDecoration="none" href={"/shop"}>
+          Shop now
+        </Link>
       </Button>
 
       {/* Mobile: Two cards side-by-side below heading */}

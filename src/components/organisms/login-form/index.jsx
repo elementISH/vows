@@ -1,7 +1,7 @@
 "use client";
 
 import { z } from "zod";
-import { HStack, VStack, Box } from "@chakra-ui/react";
+import { HStack, VStack, Box, Stack } from "@chakra-ui/react";
 import { Divider, Input, Link } from "@/components/atoms";
 import { Form, SocialLogin } from "@/components/molecules";
 
@@ -59,33 +59,41 @@ export default function LoginForm() {
             </form.Field>
 
             {/* Password Field + Forgot Link */}
-            <VStack gap={0} alignItems="flex-end">
-              <form.Field name="password">
-                {(field) => (
-                  <>
-                    <Input
-                      label="Password"
-                      name="password"
-                      placeholder="••••••••"
-                      isPassword
-                      field={field}
-                      rounded="xl"
-                    />
-                    <HStack justify="flex-end" mt={1}>
-                      <Link
-                        href="/forgot-password"
-                        textStyle="sm"
-                        color="text-black"
-                        textDecoration="none"
-                        _hover={{ textDecoration: "underline" }}
-                      >
-                        Forgot password?
-                      </Link>
-                    </HStack>
-                  </>
-                )}
-              </form.Field>
-            </VStack>
+            <form.Field name="password">
+              {(field) => (
+                <>
+                  <Input
+                    label="Password"
+                    name="password"
+                    placeholder="••••••••"
+                    isPassword
+                    field={field}
+                    rounded="xl"
+                  />
+                </>
+              )}
+            </form.Field>
+            <Stack
+              direction={{ base: "column-reverse", sm: "row" }}
+              w={"full"}
+              justifyContent={"space-between"}
+            >
+              <Box textStyle={"sm"}>
+                Don&apos;t have an account?{" "}
+                <Link href="/signup" textStyle="sm">
+                  Sign up
+                </Link>
+              </Box>
+              <Link
+                href="/forgot-password"
+                textStyle="sm"
+                color="text-black"
+                textDecoration="none"
+                _hover={{ textDecoration: "underline" }}
+              >
+                Forgot password?
+              </Link>
+            </Stack>
           </>
         )}
       </Form>

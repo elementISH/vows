@@ -14,6 +14,7 @@ import {
   Divider,
   FormatColor,
   Image,
+  Link,
   QuantitySelector,
 } from "@/components/atoms";
 import { useState } from "react";
@@ -127,8 +128,11 @@ function CartItem({ item, switchActions }) {
                 color="fg.muted"
                 px={0}
                 _hover={{ bg: "transparent" }}
+                asChild
               >
-                <Pencil size={12} /> Edit
+                <Link color="fg.muted" textDecoration="none" href="/product/0">
+                  <Pencil size={12} /> Edit
+                </Link>
               </Button>
               <Divider
                 vertical
@@ -208,8 +212,11 @@ function CartItem({ item, switchActions }) {
             px={0}
             color="fg.muted"
             _hover={{ bg: "transparent" }}
+            asChild
           >
-            <Pencil size={12} /> Edit
+            <Link color="fg.muted" textDecoration="none" href="/product/0">
+              <Pencil size={12} /> Edit
+            </Link>
           </Button>
           <Divider
             vertical
@@ -274,8 +281,11 @@ function CartItem({ item, switchActions }) {
             px={0}
             color="fg.muted"
             _hover={{ bg: "transparent" }}
+            asChild
           >
-            <Pencil size={12} /> Edit
+            <Link color="fg.muted" textDecoration="none" href="/product/0">
+              <Pencil size={12} /> Edit
+            </Link>
           </Button>
           <Divider
             vertical

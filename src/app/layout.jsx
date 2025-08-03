@@ -1,8 +1,9 @@
 import { Krub } from "next/font/google";
 import "./globals.css";
-import Provider from "@/chakra-config/provider";
+import Provider from "@/site-config/provider";
 import { Footer, NavBar } from "@/components/organisms";
 import { Toaster } from "sonner";
+import { NavigationGuardProvider } from "@/site-config/navigation-guard";
 const krub = Krub({
   variable: "--font-krub",
   weight: ["400", "500", "600", "700"],
@@ -21,10 +22,11 @@ export default function RootLayout({ children }) {
             richColors
             toastOptions={{ style: { marginTop: "3.25rem" } }}
           />
-
-          <NavBar />
-          {children}
-          <Footer />
+          <NavigationGuardProvider>
+            <NavBar />
+            {children}
+            <Footer />
+          </NavigationGuardProvider>
         </Provider>
       </body>
     </html>

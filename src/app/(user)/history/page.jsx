@@ -1,5 +1,5 @@
 "use client";
-import { Button, Divider, Image } from "@/components/atoms";
+import { Button, Divider, Image, Link } from "@/components/atoms";
 import { CardShell, Section } from "@/components/molecules";
 import { PageWrapper } from "@/components/organisms";
 import {
@@ -265,8 +265,9 @@ export default function HistoryPage() {
                       textUnderlineOffset={2}
                       px={0}
                       _hover={{ bg: "transparent" }}
+                      asChild
                     >
-                      view invoice
+                      <Link href="/thank-you">view invoice</Link>
                     </Button>
                   }
                   cardStyles={{
@@ -398,8 +399,10 @@ export default function HistoryPage() {
                 <Text textStyle="lg" fontWeight="500" textAlign="center">
                   Having issues with your orders?
                 </Text>
-                <Button minW="2xs" rounded="xl">
-                  Contact us
+                <Button minW="2xs" rounded="xl" asChild>
+                  <Link color="text-white" textDecoration="none" href="contact">
+                    Contact us
+                  </Link>
                 </Button>
               </VStack>
             </Box>

@@ -1,4 +1,4 @@
-import { Heading, Image } from "@/components/atoms";
+import { Heading, Link } from "@/components/atoms";
 import { PageWrapper, SignupForm } from "@/components/organisms";
 import { COMPANY_NAME } from "@/config";
 import { Box, VStack } from "@chakra-ui/react";
@@ -10,7 +10,6 @@ export default function SignUpPage() {
 `;
   return (
     <>
-      <Script src="https://accounts.google.com/gsi/client" async defer />
       <PageWrapper alignItems="center">
         <Box
           position="relative"

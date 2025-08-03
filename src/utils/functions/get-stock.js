@@ -4,5 +4,5 @@ const MOCK_STOCK = {
   "#FFFFFF": { "x-small": 0, small: 2, medium: 3, large: 1 },
 };
 export default function getAvailableStock(color, size) {
-  return color && size ? MOCK_STOCK[color]?.[size] ?? 1 : Infinity;
+  return color && size ? MOCK_STOCK[color]?.[size] ?? 999 : 999;
 }

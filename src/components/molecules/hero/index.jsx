@@ -1,6 +1,6 @@
 "use client";
 
-import { BlobWrapper, Button, Heading, Image } from "@/components/atoms";
+import { BlobWrapper, Button, Heading, Image, Link } from "@/components/atoms";
 import { Box, Flex, For, HStack, Text, VStack } from "@chakra-ui/react";
 
 export default function Hero() {
@@ -71,8 +71,15 @@ export default function Hero() {
               px={{ base: 4, md: 28 }}
               minW={{ base: "full", md: "fit" }}
               fontWeight="bold"
+              asChild
             >
-              Shop now
+              <Link
+                color="text-white"
+                textDecoration="none"
+                href={"/shop"}
+              >
+                Shop now
+              </Link>
             </Button>
           </VStack>
         </VStack>

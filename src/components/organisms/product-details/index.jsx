@@ -4,9 +4,6 @@ import { useState, useEffect, useRef } from "react";
 import {
   Box,
   Flex,
-  HStack,
-  Icon,
-  Text,
   VStack,
   Dialog,
   Portal,
@@ -14,24 +11,15 @@ import {
   useBreakpointValue,
   Show,
 } from "@chakra-ui/react";
-import { ColorSelector, SizeSelector } from "@/components/molecules";
 import ProductInfo from "./product-info";
 import ProductCarousel from "./product-carousel";
-import {
-  Button,
-  Tag,
-  Tooltip,
-  Divider,
-  QuantitySelector,
-} from "@/components/atoms";
-import { CircleQuestionMark, Minus, Palette, Plus, X } from "lucide-react";
+import { Button, Divider } from "@/components/atoms";
 import { toast } from "sonner";
 import { useBeforeUnload } from "@/utils/hooks";
-import VariationSelector from "./variationSelector";
 import { useRouter, usePathname } from "next/navigation";
-import { ShoppingBasket } from "..";
 import { getAvailableStock } from "@/utils/functions";
 import ProductOptions from "./product-options";
+import { useNavigationGuard } from "@/site-config/navigation-guard";
 
 const COLOR_IMAGES = {
   "#B28C86": ["/test_image.png", "/test_category.png"],
@@ -50,28 +38,26 @@ const EMPTY_VARIATION = {
   size: null,
   quantity: 1,
   saved: false,
+  customSize: { length: "", width: "" },
+  customColor: "",
 };
 
 export default function ProductDetails() {
   const router = useRouter();
   const pathname = usePathname();
-
+  const { setShouldBlock } = useNavigationGuard();
   const [variations, setVariations] = useState([EMPTY_VARIATION]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [showDeleteDialogIndex, setShowDeleteDialogIndex] = useState(null);
-  const [showMinTooltip, setShowMinTooltip] = useState(false);
-  const [showMaxTooltip, setShowMaxTooltip] = useState(false);
-
   const [pendingRoute, setPendingRoute] = useState(null);
   const [showNavConfirmDialog, setShowNavConfirmDialog] = useState(false);
-
   const current = variations[activeIndex];
-  const { color, size, quantity, saved } = current || EMPTY_VARIATION;
+  const { color, size, quantity, customSize, customColor, saved } =
+    current || EMPTY_VARIATION;
 
   const hasUnsavedChanges = variations.some(
     (item) => !item.saved && (item.color !== null || item.size !== null)
   );
-  console.log(hasUnsavedChanges);
   const updateActive = (updates) => {
     const updated = [...variations];
     updated[activeIndex] = {
@@ -84,10 +70,9 @@ export default function ProductDetails() {
     const selSize = updates.size ?? updated[activeIndex].size;
 
     if (selColor && selSize) {
-      const stock = MOCK_STOCK[selColor]?.[selSize] ?? 1;
+      const stock = MOCK_STOCK[selColor]?.[selSize] ?? 999;
       if (updated[activeIndex].quantity > stock) {
         updated[activeIndex].quantity = stock;
-        setShowMaxTooltip(true);
         toast.info(`Stock limit: max ${stock} items for size ${selSize}`);
       }
     }
@@ -117,11 +102,10 @@ export default function ProductDetails() {
       return;
     }
 
-    const stock = MOCK_STOCK[color]?.[size] ?? 0;
+    const stock = MOCK_STOCK[color]?.[size] ?? 999;
     if (quantity > stock) {
       toast.error(`Max available for this size is ${stock}`);
       updateActive({ quantity: stock });
-      setShowMaxTooltip(true);
       return;
     }
 
@@ -129,25 +113,6 @@ export default function ProductDetails() {
     updated[activeIndex].saved = true;
     setVariations(updated);
     toast.success("Saved");
-  };
-
-  const handleQuantityChange = (direction) => {
-    if (direction === "inc") {
-      const stock = color && size ? MOCK_STOCK[color]?.[size] ?? 999 : 999;
-      if (quantity < stock) {
-        updateActive({ quantity: quantity + 1 });
-        setShowMaxTooltip(false);
-      } else {
-        setShowMaxTooltip(true);
-      }
-    } else if (direction === "dec") {
-      if (quantity > 1) {
-        updateActive({ quantity: quantity - 1 });
-        setShowMinTooltip(false);
-      } else {
-        setShowMinTooltip(true);
-      }
-    }
   };
 
   useBeforeUnload(() => hasUnsavedChanges);
@@ -167,8 +132,8 @@ export default function ProductDetails() {
     return () => {
       router.push = originalPush;
     };
-  }, [hasUnsavedChanges, pathname, router]);
-
+  }, [hasUnsavedChanges, pathname]);
+  console.log(showNavConfirmDialog);
   useEffect(() => {
     const handleClick = (e) => {
       const anchor = e.target.closest("a[href]");
@@ -184,7 +149,7 @@ export default function ProductDetails() {
     };
     document.addEventListener("click", handleClick);
     return () => document.removeEventListener("click", handleClick);
-  }, [hasUnsavedChanges, pathname, router]);
+  }, [hasUnsavedChanges, pathname]);
 
   const confirmAndNavigate = () => {
     if (pendingRoute) {
@@ -198,8 +163,12 @@ export default function ProductDetails() {
     mid: true,
     midL: false,
   });
-  const isMobile = useBreakpointValue({ base: true, md: false });
-
+  useEffect(() => {
+    setShouldBlock(hasUnsavedChanges);
+    return () => setShouldBlock(false);
+  }, [hasUnsavedChanges]);
+  const fallbackKey = Object.keys(COLOR_IMAGES)[0];
+  const images = COLOR_IMAGES[color] || COLOR_IMAGES[fallbackKey];
   const editRef = useRef(null);
   return (
     <Flex
@@ -215,9 +184,7 @@ export default function ProductDetails() {
           maxW={{ base: "50%", midL: "100%" }}
           minW={{ base: "100%", mid: "50%", midL: "100%" }}
         >
-          <ProductCarousel
-            images={COLOR_IMAGES[color ?? Object.keys(COLOR_IMAGES)[0]]}
-          />
+          <ProductCarousel images={images} />
         </Box>
         <Show when={swapDetails}>
           <Box maxW={"fit"}>
@@ -228,7 +195,7 @@ export default function ProductDetails() {
 
       <VStack
         align="stretch"
-        maxW={{ base: "100%", lg: "50%" }}
+        maxW={{ base: "100%", md: "50%" }}
         flex={1}
         w="full"
         gap={4}
@@ -250,6 +217,10 @@ export default function ProductDetails() {
           saved={saved}
           setActiveIndex={setActiveIndex}
           size={size}
+          customSize={customSize}
+          onCustomSizeChange={(value) => updateActive({ customSize: value })}
+          customColor={customColor}
+          onCustomColorChange={(value) => updateActive({ customColor: value })}
           setShowDeleteDialogIndex={setShowDeleteDialogIndex}
           updateActive={updateActive}
           variations={variations}
@@ -271,15 +242,13 @@ export default function ProductDetails() {
                   leave this page?
                 </Dialog.Body>
                 <Dialog.Footer>
-                  <Dialog.ActionTrigger asChild>
-                    <Button onClick={() => setShowNavConfirmDialog(false)}>
-                      Cancel
-                    </Button>
-                  </Dialog.ActionTrigger>
+                  <Button onClick={() => setShowNavConfirmDialog(false)}>
+                    Cancel
+                  </Button>
                   <Button
                     onClick={confirmAndNavigate}
                     variant="outline"
-                    colorScheme="red"
+                    bg="transparent"
                   >
                     Discard Changes
                   </Button>

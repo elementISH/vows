@@ -49,7 +49,9 @@ export default function AdSection() {
             <Image
               src="/ad_image_first.png"
               alt="ad-image-left"
-              nextProps={{ fill: true }}
+              nextProps={{
+                fill: true,
+              }}
               chakraProps={{
                 objectFit: "cover",
                 objectPosition: "0px -10px",
@@ -165,7 +167,9 @@ export default function AdSection() {
             <Image
               src="/ad_image.png"
               alt="ad-image-right"
-              nextProps={{ fill: true }}
+              nextProps={{
+                fill: true,
+              }}
               chakraProps={{
                 objectFit: "cover",
                 objectPosition: "top",

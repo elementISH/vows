@@ -1,55 +1,104 @@
-"use client";
+import { Button, Input, Tag, Tooltip } from "@/components/atoms";
+import { HStack, Popover } from "@chakra-ui/react";
+import { Plus } from "lucide-react";
 
-import {
-  Popover,
-  Button,
-  Portal,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverBody,
-  Input,
-  HStack,
-} from "@chakra-ui/react";
-import { useState } from "react";
+export default function CustomSizePopover({
+  selected,
+  onSubmit,
+  value,
+  onChange,
+}) {
+  const { length = "", width = "" } = value || {};
 
-export default function CustomSizePopover({ onSubmit }) {
-  const [length, setLength] = useState("");
-  const [width, setWidth] = useState("");
+  const handleLengthChange = (e) => {
+    const newLength = e.target.value;
+    onChange({ length: newLength, width });
+  };
+
+  const handleWidthChange = (e) => {
+    const newWidth = e.target.value;
+    onChange({ length, width: newWidth });
+  };
+
+  const isValid = () => {
+    const len = parseFloat(length);
+    const wid = parseFloat(width);
+    return !isNaN(len) && !isNaN(wid) && len > 0 && wid > 0;
+  };
 
   return (
-    <Popover>
-      <PopoverTrigger>
-        <Button size="sm" variant="outline" rounded="full">
-          Add Size
-        </Button>
-      </PopoverTrigger>
-      <Portal>
-        <PopoverContent>
-          <PopoverBody>
+    <Popover.Root>
+      <Popover.Trigger asChild>
+        {length && width ? (
+          <Tag
+            rounded="full"
+            px={4}
+            bg={selected === `${length}x${width}` ? "rose.100" : "transparent"}
+            color="primary"
+            fontWeight="600"
+            flexShrink={0}
+            shadowColor="rose.400"
+            cursor={"pointer"}
+          >
+            {length}x{width}
+          </Tag>
+        ) : (
+          // <Tooltip content="Customize your own size!" asChild>
+          <Tag
+            px={4}
+            bg="bg-color"
+            h="stretch"
+            rounded="full"
+            border="2px dashed"
+            borderColor="primary"
+            boxShadow="none"
+            color="primary"
+            cursor="pointer"
+          >
+            <Plus size={16} color="var(--chakra-colors-primary)" />
+          </Tag>
+          // </Tooltip>
+        )}
+      </Popover.Trigger>
+      <Popover.Positioner>
+        <Popover.Content>
+          <Popover.CloseTrigger />
+          <Popover.Arrow>
+            <Popover.ArrowTip />
+          </Popover.Arrow>
+          <Popover.Body>
             <HStack gap={2} mb={2}>
               <Input
                 placeholder="Length"
                 value={length}
-                onChange={(e) => setLength(e.target.value)}
+                onChange={handleLengthChange}
+                bg="transparent"
                 size="sm"
               />
               <Input
                 placeholder="Width"
                 value={width}
-                onChange={(e) => setWidth(e.target.value)}
+                onChange={handleWidthChange}
+                bg="transparent"
                 size="sm"
               />
             </HStack>
-            <Button
-              size="sm"
-              w="full"
-              onClick={() => onSubmit({ length, width })}
-            >
-              Save
-            </Button>
-          </PopoverBody>
-        </PopoverContent>
-      </Portal>
-    </Popover>
+            <Popover.CloseTrigger asChild>
+              <Button
+                size="sm"
+                w="full"
+                onClick={() => {
+                  if (!isValid()) return;
+                  onSubmit({ length, width });
+                }}
+                disabled={!isValid()}
+              >
+                Save
+              </Button>
+            </Popover.CloseTrigger>
+          </Popover.Body>
+        </Popover.Content>
+      </Popover.Positioner>
+    </Popover.Root>
   );
 }

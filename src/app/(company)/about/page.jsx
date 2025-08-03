@@ -1,9 +1,18 @@
 "use client";
 
-import { Box, Heading, Stack, Text, SimpleGrid, Icon } from "@chakra-ui/react";
+import {
+  Box,
+  Heading,
+  Stack,
+  Text,
+  SimpleGrid,
+  Icon,
+  VStack,
+} from "@chakra-ui/react";
 import { PageWrapper } from "@/components/organisms";
 import { HeartHandshake, LockKeyhole, Sparkles } from "lucide-react";
 import { COMPANY_NAME } from "@/config";
+import { Button, Link } from "@/components/atoms";
 
 const values = [
   {
@@ -45,7 +54,10 @@ export default function AboutPage() {
         {/* Hero Section */}
         <Box textAlign="center">
           <Heading as="h1" size="2xl" mb={4}>
-            About {COMPANY_NAME}
+            About{" "}
+            <Box as="strong" color="rose.500" display="inline">
+              {COMPANY_NAME}
+            </Box>
           </Heading>
           <Text textStyle={{ base: "md", md: "lg" }} color="gray.600">
             Your trusted wedding marketplace, personalized, beautiful, and
@@ -112,20 +124,39 @@ export default function AboutPage() {
             Built for Couples, Backed by Technology
           </Heading>
           <Text color="gray.700" textStyle={{ base: "sm", md: "md" }}>
-            {COMPANY_NAME} is more than a store, it’s a fully-integrated
-            platform that gives you the power to browse, purchase, and customize
-            wedding essentials all from the comfort of your home. Whether you're
-            a bride, groom, or planner, we empower you with modern tools and
-            elegant designs to make your wedding truly unforgettable.
+            <Box as="strong" color="rose.500" display="inline">
+              {COMPANY_NAME}
+            </Box>{" "}
+            is more than a store, it’s a fully-integrated platform that gives
+            you the power to browse, purchase, and customize wedding essentials
+            all from the comfort of your home. Whether you're a bride, groom, or
+            planner, we empower you with modern tools and elegant designs to
+            make your wedding truly unforgettable.
           </Text>
         </Box>
 
         {/* Closing */}
-        <Box textAlign="center">
-          <Text fontSize="sm" color="gray.500">
-            Thank you for choosing {COMPANY_NAME}. Let's make memories together.
+        <VStack textAlign="center">
+          <Text textStyle="sm" color="gray.500">
+            Thank you for choosing{" "}
+            <Box as="strong" color="rose.500" display="inline">
+              {COMPANY_NAME}
+            </Box>
+            . Let's make memories together.
           </Text>
-        </Box>
+
+          <Link
+            textDecoration="none"
+            _hover={{
+              textDecoration: "underline",
+              textUnderlineOffset: "4px",
+            }}
+            textStyle="sm"
+            href={"/shop"}
+          >
+            go back to shop
+          </Link>
+        </VStack>
       </Stack>
     </PageWrapper>
   );

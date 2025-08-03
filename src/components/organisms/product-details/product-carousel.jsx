@@ -107,7 +107,9 @@ export default function ProductCarousel({ images }) {
                   className="embla__slide__img"
                   chakraProps={{ borderRadius: "1rem" }}
                   nextProps={{
+                    priority: idx == 0 ? true : false,
                     fill: true,
+                    sizes: "50vw",
                     loading: idx === 0 ? "eager" : "lazy",
                   }}
                 />

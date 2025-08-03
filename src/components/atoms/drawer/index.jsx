@@ -8,17 +8,6 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
-/**
- * Drawer component with optional trigger, title, children, and footer
- * @param {Object} props
- * @param {React.ReactNode} [props.trigger]
- * @param {React.ReactNode} [props.title]
- * @param {React.ReactNode} [props.children]
- * @param {React.ReactNode} [props.footer]
- * @param {string} [props.size] - Drawer size ("xs", "sm", "md", etc.)
- * @param {boolean} [props.isOpen] - Controlled open state
- * @param {(open: boolean) => void} [props.onOpenChange] - Controlled state setter
- */
 export default function Drawer({
   trigger,
   title,
@@ -26,6 +15,7 @@ export default function Drawer({
   footer,
   size = "xs",
   isOpen,
+  bodyStyles = {},
   onOpenChange,
 }) {
   const [internalOpen, setInternalOpen] = useState(false);
@@ -67,15 +57,7 @@ export default function Drawer({
               overflowY="auto"
               px={6}
               py={2}
-              sx={{
-                "&::-webkit-scrollbar": {
-                  width: "6px",
-                },
-                "&::-webkit-scrollbar-thumb": {
-                  background: "gray.300",
-                  borderRadius: "3px",
-                },
-              }}
+              {...bodyStyles}
             >
               {children || fallbackContent}
             </ChakraDrawer.Body>

@@ -64,7 +64,7 @@ export default function CheckoutPage() {
     } else {
       setAddresses((prev) => [
         ...prev,
-        { ...addr, id: Date.now().toString(), label: addr.street },
+        { ...addr, id: Math.random(), label: addr.street },
       ]);
     }
     setDialogOpen(false);
@@ -132,7 +132,7 @@ export default function CheckoutPage() {
               <PaymentActions
                 value={paymentMethod}
                 onChange={setPaymentMethod}
-                disabledOptions={[]}
+                disabledOptions={["COD"]}
               />
             </Stack>
             <CardShell
@@ -325,9 +325,16 @@ export default function CheckoutPage() {
                   w="full"
                   disabled={!selectedAddress || !selectedPayemntMethod}
                   onClick={() => handleSubmitOrder()}
+                  asChild
                 >
-                  <CreditCard />
-                  Continue to payment
+                  <Link
+                    href={"thank-you"}
+                    color="text-white"
+                    textDecoration="none"
+                  >
+                    <CreditCard />
+                    Continue to payment
+                  </Link>
                 </Button>
 
                 {/* Payment method logos */}

@@ -1,4 +1,4 @@
-import { Button, Drawer, Heading, Input } from "@/components/atoms";
+import { Button, Drawer, Heading, Input, Link } from "@/components/atoms";
 import { Box, HStack, Show, useBreakpointValue } from "@chakra-ui/react";
 import { Search, User } from "lucide-react";
 import React from "react";
@@ -27,8 +27,10 @@ export default function NavBarActions() {
       <SearchTrigger />
       <ShoppingBasket />
       {isAuthed && (
-        <Button icon rounded={"full"} variant={"outline"}>
-          <User />
+        <Button icon rounded={"full"} variant={"outline"} asChild>
+          <Link href={"/account"}>
+            <User />
+          </Link>
         </Button>
       )}
     </HStack>

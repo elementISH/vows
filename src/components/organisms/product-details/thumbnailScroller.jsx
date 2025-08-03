@@ -72,7 +72,7 @@ export default function ThumbnailScroller({ images, selected, onSelect }) {
         gap={2}
         flex="1"
         scrollbar="hidden"
-        sx={{
+        css={{
           scrollSnapType: "x mandatory",
           scrollBehavior: "smooth",
         }}
@@ -88,7 +88,7 @@ export default function ThumbnailScroller({ images, selected, onSelect }) {
             rounded="xl"
             overflow="hidden"
             flexShrink={0}
-            sx={{ scrollSnapAlign: "center" }}
+            css={{ scrollSnapAlign: "center" }}
           >
             <Image
               src={src}

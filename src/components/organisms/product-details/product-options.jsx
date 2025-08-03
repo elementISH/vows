@@ -1,21 +1,12 @@
-import {
-  VStack,
-  HStack,
-  Text,
-  Box,
-  useBreakpointValue,
-} from "@chakra-ui/react";
+import { VStack, HStack, Text } from "@chakra-ui/react";
 import { ColorSelector, SizeSelector } from "@/components/molecules";
-import { Plus, Palette, CircleQuestionMark } from "lucide-react";
-import {
-  Divider,
-  QuantitySelector,
-  Tooltip,
-  Tag,
-  Button,
-} from "@/components/atoms";
+import { Palette } from "lucide-react";
+import { Divider, QuantitySelector, Button } from "@/components/atoms";
 import VariationSelector from "./variationSelector";
-import { ShoppingBasket } from "@/components/organisms";
+import { CustomizationPanel, ShoppingBasket } from "@/components/organisms";
+import CustomSizePopover from "./custom-size-popover";
+import CustomColorPopover from "./custom-color-popover";
+import SizeChartTrigger from "./size-chart-trigger";
 
 export default function ProductOptions({
   editRef,
@@ -32,9 +23,11 @@ export default function ProductOptions({
   setActiveIndex,
   setShowDeleteDialogIndex,
   handleAddVariation,
+  customSize,
+  onCustomSizeChange,
+  customColor,
+  onCustomColorChange,
 }) {
-  const isMobile = useBreakpointValue({ base: true, md: false });
-
   return (
     <VStack ref={editRef} w="full" align="start" gap={6}>
       {/* Color Picker */}
@@ -46,22 +39,12 @@ export default function ProductOptions({
           onChange={(c) => updateActive({ color: c })}
           canExtend
           renderExtend={() => (
-            <Tooltip content="Customize your own color!">
-              <Box
-                boxSize={{ base: "28px", sm: "28px" }}
-                rounded="full"
-                bg="bg-color"
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-                cursor="pointer"
-                border="2px dashed"
-                borderColor="primary"
-                onClick={() => console.log("Add new color")}
-              >
-                <Plus size="18" color="var(--chakra-colors-primary)" />
-              </Box>
-            </Tooltip>
+            <CustomColorPopover
+              selected={color}
+              value={customColor}
+              onChange={onCustomColorChange}
+              onSubmit={(color) => updateActive({ color })}
+            />
           )}
         />
       </VStack>
@@ -71,13 +54,7 @@ export default function ProductOptions({
         <VStack align="start" w="full" gap={3}>
           <Text display="flex" gap={2} alignItems="center">
             Choose your size
-            <Tooltip content="View size chart">
-              <CircleQuestionMark
-                size={18}
-                color="var(--chakra-colors-fg-muted)"
-                cursor="pointer"
-              />
-            </Tooltip>
+            <SizeChartTrigger chart={null} />
           </Text>
 
           <SizeSelector
@@ -86,21 +63,14 @@ export default function ProductOptions({
             onChange={(s) => updateActive({ size: s })}
             canExtend
             renderExtend={() => (
-              <Tooltip content="Customize your own size!">
-                <Tag
-                  px={4}
-                  bg="bg-color"
-                  rounded="full"
-                  border="2px dashed"
-                  borderColor="primary"
-                  boxShadow="none"
-                  color="primary"
-                  cursor="pointer"
-                  onClick={() => console.log("Add new size")}
-                >
-                  <Plus size="18" color="var(--chakra-colors-primary)" />
-                </Tag>
-              </Tooltip>
+              <CustomSizePopover
+                selected={size}
+                value={customSize}
+                onChange={onCustomSizeChange}
+                onSubmit={({ length, width }) =>
+                  updateActive({ size: `${length}x${width}` })
+                }
+              />
             )}
           />
         </VStack>
@@ -112,7 +82,7 @@ export default function ProductOptions({
             onChange={(q) => updateActive({ quantity: q })}
             stock={getAvailableStock(color, size)}
             size="sm"
-            boxSize={10}
+            boxSize={9}
           />
         </VStack>
       </VStack>
@@ -120,17 +90,14 @@ export default function ProductOptions({
       {/* Customization CTA */}
       <VStack align="start" w="full" gap={3}>
         <Text textStyle="md">Get creative</Text>
-        <Button variant="outline" textStyle="sm" rounded="2xl" maxW={"full"}>
-          <Palette strokeWidth={2} color="var(--chakra-colors-primary)" />
-          <Text truncate>Add custom text, choose patterns and more</Text>
-        </Button>
+        <CustomizationPanel />
       </VStack>
 
       <Divider />
 
       {/* Bottom Actions & Variations */}
       <VStack w="full" alignItems="start" gap={4} justifyContent="start" pt={2}>
-        <HStack gap={{ base: 2, md: 4 }} w="full" justifyContent={"flex-start"}>
+        <HStack gap={{ base: 2 }} w="full" justifyContent={"flex-start"}>
           <Button
             disabled={!color || !size || saved}
             onClick={handleAddToCart}

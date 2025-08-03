@@ -11,4 +11,5 @@ export { default as LoginForm } from './login-form';
 export { default as SignupForm } from './signup-form';
 export { default as ProductDetails } from './product-details';
 export { default as AccountForm } from './account-form';
+export { default as CustomizationPanel } from './customization-panel';
 // PLUG_ADD_EXPORT

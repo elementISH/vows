@@ -8,7 +8,7 @@ import { Button, Tooltip } from "@/components/atoms";
 export default function QuantitySelector({
   quantity,
   onChange,
-  stock = Infinity,
+  stock = 999,
   min = 1,
   disabled = false,
   size = "sm",

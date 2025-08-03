@@ -3,25 +3,24 @@
 import { z } from "zod";
 import {
   Box,
-  VStack,
-  Checkbox,
-  CheckboxGroup,
-  HStack,
   Text,
   Wrap,
   WrapItem,
+  HStack,
+  Collapsible,
+  Icon,
+  Switch,
 } from "@chakra-ui/react";
+import { Check, Minus, Plus, Star, X } from "lucide-react";
 import { Form } from "@/components/molecules";
 import { Button, Input } from "@/components/atoms";
-import { zodFieldValidator } from "@/utils/functions";
-import { Star } from "lucide-react";
 import { toast } from "sonner";
+import { useEffect, useState } from "react";
 
-// 2. Default Values
 const defaultValues = {
   categories: [],
   subcategories: [],
-  color: "",
+  color: [],
   priceFrom: "",
   priceTo: "",
   rating: "",
@@ -40,7 +39,7 @@ const SORT_OPTIONS = [
 ];
 const COLOR_OPTIONS = ["red", "blue", "green", "yellow", "black", "white"];
 
-export default function AdvancedProductFilterForm() {
+export default function AdvancedFilterForm() {
   const handleSubmit = async ({ value }) => {
     const errors = [];
 
@@ -57,7 +56,18 @@ export default function AdvancedProductFilterForm() {
         errors.push("Price To must be a valid non-negative number.");
       }
     }
-
+    if (
+      value.priceFrom !== undefined &&
+      value.priceTo !== undefined &&
+      value.priceFrom !== "" &&
+      value.priceTo !== ""
+    ) {
+      const priceFromNum = Number(value.priceFrom) || 0;
+      const priceToNum = Number(value.priceTo) || 0;
+      if (priceToNum <= priceFromNum) {
+        errors.push("Price To must be greater than Price From.");
+      }
+    }
     if (errors.length > 0) {
       errors.forEach((err) => toast.error(err));
       return;
@@ -68,7 +78,7 @@ export default function AdvancedProductFilterForm() {
   };
 
   return (
-    <Box w="full">
+    <Box w="full" h={"full"}>
       <Form
         defaultValues={defaultValues}
         onSubmit={handleSubmit}
@@ -79,230 +89,471 @@ export default function AdvancedProductFilterForm() {
           w: "100%",
           display: "flex",
           flexDirection: "column",
+          height: "100%",
         }}
+        limitHeight
       >
-        {(form) => (
-          <>
-            {/* Categories */}
-            <form.Field name="categories">
-              {(field) => {
-                const selected = field.state.value || [];
+        {(form) => {
+          return (
+            <Box maxH={"98%"} overflow={"auto"} pe={2} className="customScroll">
+              {/* Categories */}
+              <Collapsible.Root>
+                <form.Subscribe
+                  selector={(state) => state.values["categories"]}
+                >
+                  {(categories) => (
+                    <Collapsible.Trigger
+                      py="3"
+                      cursor="pointer"
+                      w="full"
+                      display="flex"
+                      justifyContent="space-between"
+                      _focus={{ outline: "none" }}
+                    >
+                      <HStack>
+                        <Text fontWeight="bold">Categories</Text>
+                        {categories?.length > 0 && (
+                          <span
+                            variant="ghost"
+                            size="xs"
+                            px={2}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              form.setFieldValue("categories", []);
+                            }}
+                          >
+                            - Clear
+                          </span>
+                        )}
+                      </HStack>
+                      <Collapsible.Context>
+                        {(store) =>
+                          store.open ? <Minus size={16} /> : <Plus size={16} />
+                        }
+                      </Collapsible.Context>
+                    </Collapsible.Trigger>
+                  )}
+                </form.Subscribe>
+                <Collapsible.Content>
+                  <form.Field name="categories">
+                    {(field) => {
+                      const selected = field.state.value || [];
+                      const toggle = (v) =>
+                        field.handleChange(
+                          selected.includes(v)
+                            ? selected.filter((s) => s !== v)
+                            : [...selected, v]
+                        );
 
-                const toggleCategory = (value) => {
-                  const newValue = selected?.includes(value)
-                    ? selected.filter((v) => v !== value)
-                    : [...selected, value];
-                  field.handleChange(newValue);
-                };
-
-                return (
-                  <VStack align="start">
-                    <Text fontWeight="bold">Categories</Text>
-                    {CATEGORY_OPTIONS.map((cat) => (
-                      <Checkbox.Root
-                        key={cat}
-                        checked={selected?.includes(cat)}
-                        onCheckedChange={() => toggleCategory(cat)}
-                      >
-                        <Checkbox.HiddenInput />
-                        <Checkbox.Control
-                          bg={selected?.includes(cat) && "primary"}
-                          borderColor={selected?.includes(cat) && "primary"}
-                        />
-                        <Checkbox.Label> {cat}</Checkbox.Label>
-                      </Checkbox.Root>
-                    ))}
-                  </VStack>
-                );
-              }}
-            </form.Field>
-
-            {/* Subcategories */}
-            <form.Field name="subcategories">
-              {(field) => {
-                const selected = field.state.value || [];
-
-                const toggleSubCategory = (value) => {
-                  const newValue = selected?.includes(value)
-                    ? selected.filter((v) => v !== value)
-                    : [...selected, value];
-                  field.handleChange(newValue);
-                };
-
-                return (
-                  <VStack align="start">
-                    <Text fontWeight="bold">Sub Categories</Text>
-                    {SUBCATEGORY_OPTIONS.map((sub) => (
-                      <Checkbox.Root
-                        key={sub}
-                        checked={selected?.includes(sub)}
-                        onCheckedChange={() => toggleSubCategory(sub)}
-                      >
-                        <Checkbox.HiddenInput />
-                        <Checkbox.Control
-                          bg={selected?.includes(sub) && "primary"}
-                          borderColor={selected?.includes(sub) && "primary"}
-                        />
-                        <Checkbox.Label> {sub}</Checkbox.Label>
-                      </Checkbox.Root>
-                    ))}
-                  </VStack>
-                );
-              }}
-            </form.Field>
-
-            {/* Color */}
-            <form.Field name="color">
-              {(field) => {
-                const selected = field.state.value || [];
-
-                const toggleColor = (value) => {
-                  const newValue = selected.includes(value)
-                    ? selected.filter((v) => v !== value)
-                    : [...selected, value];
-                  field.handleChange(newValue);
-                };
-
-                return (
-                  <Wrap>
-                    {COLOR_OPTIONS.map((color) => (
-                      <Checkbox.Root
-                        key={color}
-                        checked={selected.includes(color)}
-                        onCheckedChange={() => toggleColor(color)}
-                      >
-                        <Checkbox.HiddenInput />
-                        <Checkbox.Control
-                          boxSize="8"
-                          borderRadius="full"
-                          bg={color}
-                          borderColor={
-                            selected.includes(color) ? "primary" : "gray.200"
-                          }
-                          borderWidth="2px"
-                          _checked={{
-                            boxShadow: "0 0 0 2px var(--chakra-colors-primary)",
-                          }}
-                        />
-                      </Checkbox.Root>
-                    ))}
-                  </Wrap>
-                );
-              }}
-            </form.Field>
-
-            {/* Price Range */}
-            <HStack gap={4}>
-              <form.Field name="priceFrom">
-                {(field) => (
-                  <Input
-                    label="Price From"
-                    placeholder="0"
-                    type="number"
-                    field={field}
-                    rounded="xl"
-                  />
-                )}
-              </form.Field>
-              <form.Field name="priceTo">
-                {(field) => (
-                  <Input
-                    label="Price To"
-                    placeholder="1000"
-                    type="number"
-                    field={field}
-                    rounded="xl"
-                  />
-                )}
-              </form.Field>
-            </HStack>
-
-            {/* Rating */}
-            <form.Field name="rating">
-              {(field) => {
-                const selected = Number(field.state.value || 0);
-
-                return (
-                  <HStack spacing={1} mt={1} wrap="wrap">
-                    {[...Array(5)].map((_, i) => {
-                      const starValue = i + 1;
                       return (
-                        <Box
-                          as="button"
-                          key={i}
-                          type="button"
-                          onClick={() =>
-                            field.handleChange(starValue.toString())
-                          }
-                          aria-label={`Rate ${starValue} star${
-                            starValue > 1 ? "s" : ""
-                          }`}
-                        >
-                          <Star
-                            size={20}
-                            color="#FFC229"
-                            fill={
-                              starValue <= selected
-                                ? "#FFC229"
-                                : "var(--chakra-colors-bg)"
+                        <Wrap>
+                          {CATEGORY_OPTIONS.map((opt) => {
+                            const isSelected = selected.includes(opt);
+                            return (
+                              <WrapItem key={opt}>
+                                <Button
+                                  size="2xs"
+                                  variant="outline"
+                                  bg={isSelected ? "primary" : "transparent"}
+                                  color={
+                                    isSelected ? "text-white" : "text-black"
+                                  }
+                                  onClick={() => toggle(opt)}
+                                  rounded="full"
+                                  textStyle={"sm"}
+                                >
+                                  {opt}
+                                </Button>
+                              </WrapItem>
+                            );
+                          })}
+                        </Wrap>
+                      );
+                    }}
+                  </form.Field>
+                </Collapsible.Content>
+              </Collapsible.Root>
+
+              {/* Subcategories */}
+              <Collapsible.Root>
+                <form.Subscribe
+                  selector={(state) => state.values["subcategories"]}
+                >
+                  {(subcategories) => (
+                    <Collapsible.Trigger
+                      py="3"
+                      cursor="pointer"
+                      w="full"
+                      display="flex"
+                      justifyContent="space-between"
+                      _focus={{ outline: "none" }}
+                    >
+                      <HStack>
+                        <Text fontWeight="bold">Sub categories</Text>
+                        {subcategories?.length > 0 && (
+                          <span
+                            variant="ghost"
+                            size="xs"
+                            px={2}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              form.setFieldValue("subcategories", []);
+                            }}
+                          >
+                            - Clear
+                          </span>
+                        )}
+                      </HStack>
+                      <Collapsible.Context>
+                        {(store) =>
+                          store.open ? <Minus size={16} /> : <Plus size={16} />
+                        }
+                      </Collapsible.Context>
+                    </Collapsible.Trigger>
+                  )}
+                </form.Subscribe>
+
+                <Collapsible.Content>
+                  <form.Field name="subcategories">
+                    {(field) => {
+                      const selected = field.state.value || [];
+                      const toggle = (v) =>
+                        field.handleChange(
+                          selected.includes(v)
+                            ? selected.filter((s) => s !== v)
+                            : [...selected, v]
+                        );
+
+                      return (
+                        <Wrap>
+                          {SUBCATEGORY_OPTIONS.map((opt) => {
+                            const isSelected = selected.includes(opt);
+                            return (
+                              <WrapItem key={opt}>
+                                <Button
+                                  size="2xs"
+                                  variant="outline"
+                                  bg={isSelected ? "primary" : "transparent"}
+                                  color={
+                                    isSelected ? "text-white" : "text-black"
+                                  }
+                                  onClick={() => toggle(opt)}
+                                  rounded="full"
+                                  textStyle={"sm"}
+                                >
+                                  {opt}
+                                </Button>
+                              </WrapItem>
+                            );
+                          })}
+                        </Wrap>
+                      );
+                    }}
+                  </form.Field>
+                </Collapsible.Content>
+              </Collapsible.Root>
+
+              {/* Color Selector */}
+              <Collapsible.Root>
+                <form.Subscribe selector={(state) => state.values["color"]}>
+                  {(color) => (
+                    <Collapsible.Trigger
+                      py="3"
+                      cursor="pointer"
+                      w="full"
+                      display="flex"
+                      justifyContent="space-between"
+                      _focus={{ outline: "none" }}
+                    >
+                      <HStack>
+                        <Text fontWeight="bold">Color</Text>
+                        {color?.length > 0 && (
+                          <span
+                            variant="ghost"
+                            size="xs"
+                            px={2}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              form.setFieldValue("color", []);
+                            }}
+                          >
+                            - Clear
+                          </span>
+                        )}
+                      </HStack>
+                      <Collapsible.Context>
+                        {(store) =>
+                          store.open ? <Minus size={16} /> : <Plus size={16} />
+                        }
+                      </Collapsible.Context>
+                    </Collapsible.Trigger>
+                  )}
+                </form.Subscribe>
+
+                <Collapsible.Content>
+                  <form.Field name="color">
+                    {(field) => {
+                      const selectedColors = field.state.value || [];
+
+                      const toggleColor = (c) => {
+                        const updated = selectedColors.includes(c)
+                          ? selectedColors.filter((color) => color !== c)
+                          : [...selectedColors, c];
+                        field.handleChange(updated);
+                      };
+
+                      return (
+                        <HStack gap={3} wrap="wrap" mt={2}>
+                          {COLOR_OPTIONS.map((c) => {
+                            const isSelected = selectedColors.includes(c);
+                            return (
+                              <Box
+                                key={c}
+                                boxSize="28px"
+                                rounded="full"
+                                bg={c}
+                                border="2px solid"
+                                borderColor={
+                                  isSelected ? "primary" : "gray.200"
+                                }
+                                position="relative"
+                                cursor="pointer"
+                                onClick={() => toggleColor(c)}
+                              >
+                                {isSelected && (
+                                  <Box
+                                    position="absolute"
+                                    w="70%"
+                                    h="70%"
+                                    top="50%"
+                                    left="50%"
+                                    transform="translate(-50%, -50%)"
+                                    rounded="full"
+                                    bg="whiteAlpha.500"
+                                    display="flex"
+                                    alignItems="center"
+                                    justifyContent="center"
+                                  >
+                                    <Icon
+                                      as={Check}
+                                      boxSize={3}
+                                      color="primary"
+                                      strokeWidth={3}
+                                    />
+                                  </Box>
+                                )}
+                              </Box>
+                            );
+                          })}
+                        </HStack>
+                      );
+                    }}
+                  </form.Field>
+                </Collapsible.Content>
+              </Collapsible.Root>
+
+              {/* Price Range */}
+              <Collapsible.Root>
+                <Collapsible.Trigger
+                  py="3"
+                  cursor="pointer"
+                  w="full"
+                  display="flex"
+                  justifyContent="space-between"
+                  _focus={{
+                    outline: "none",
+                  }}
+                >
+                  <Text fontWeight="bold">Price Range</Text>
+                  <Collapsible.Context>
+                    {(store) =>
+                      store.open ? <Minus size={16} /> : <Plus size={16} />
+                    }
+                  </Collapsible.Context>
+                </Collapsible.Trigger>
+                <Collapsible.Content py={"0.1px"}>
+                  <HStack gap={2} mt={2}>
+                    <form.Field name="priceFrom">
+                      {(field) => (
+                        <Input
+                          label="From"
+                          placeholder="0"
+                          type="number"
+                          field={field}
+                          rounded="xl"
+                          bg="transparent"
+                          endElement="EGP"
+                        />
+                      )}
+                    </form.Field>
+                    <form.Field name="priceTo">
+                      {(field) => (
+                        <Input
+                          label="To"
+                          placeholder="1000"
+                          type="number"
+                          field={field}
+                          rounded="xl"
+                          bg="transparent"
+                          endElement="EGP"
+                        />
+                      )}
+                    </form.Field>
+                  </HStack>
+                </Collapsible.Content>
+              </Collapsible.Root>
+
+              {/* Rating */}
+
+              <form.Subscribe selector={(state) => state.values["rating"]}>
+                {(rating) => (
+                  <HStack>
+                    <Text fontWeight="bold" py={3}>
+                      Rating
+                    </Text>
+                    {rating && rating > 0 && (
+                      <span
+                        variant="ghost"
+                        size="xs"
+                        px={2}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          form.setFieldValue("rating", "");
+                        }}
+                      >
+                        - Clear
+                      </span>
+                    )}
+                  </HStack>
+                )}
+              </form.Subscribe>
+              <form.Field name="rating">
+                {(field) => {
+                  const selected = Number(field.state.value || 0);
+
+                  return (
+                    <HStack gap={1} mt={2} wrap="wrap">
+                      {[...Array(5)].map((_, i) => {
+                        const starValue = i + 1;
+                        return (
+                          <Box
+                            as="button"
+                            key={i}
+                            type="button"
+                            onClick={() =>
+                              field.handleChange(starValue.toString())
                             }
-                          />
-                        </Box>
+                            aria-label={`Rate ${starValue} star${
+                              starValue > 1 ? "s" : ""
+                            }`}
+                          >
+                            <Star
+                              size={20}
+                              color="#FFC229"
+                              fill={
+                                starValue <= selected
+                                  ? "#FFC229"
+                                  : "var(--chakra-colors-bg-color)"
+                              }
+                            />
+                          </Box>
+                        );
+                      })}
+                    </HStack>
+                  );
+                }}
+              </form.Field>
+
+              {/* Customizable */}
+
+              <Text fontWeight="bold" py={3}>
+                Customizable
+              </Text>
+
+              <form.Field name="customizable" type="checkbox">
+                {(field) => (
+                  <Box mt={2}>
+                    <Switch.Root
+                      checked={field.state.value}
+                      onCheckedChange={() =>
+                        field.handleChange(!field.state.value)
+                      }
+                      _focus={{ outline: "none" }}
+                    >
+                      <Switch.HiddenInput />
+                      <Switch.Control
+                        _focus={{ outline: "none" }}
+                        bg={field.state.value ? "primary" : "rose.200"}
+                      >
+                        {/* Removed setState from here */}
+                        <Switch.Thumb _focus={{ outline: "none" }}>
+                          <Switch.ThumbIndicator
+                            fallback={<X color="black" size={14} />}
+                          >
+                            <Check size={14} />
+                          </Switch.ThumbIndicator>
+                        </Switch.Thumb>
+                      </Switch.Control>
+                      <Switch.Label>
+                        Products that contain customization
+                      </Switch.Label>
+                    </Switch.Root>
+                  </Box>
+                )}
+              </form.Field>
+
+              {/* Sort */}
+              <form.Subscribe selector={(state) => state.values["sort"]}>
+                {(sort) => (
+                  <HStack>
+                    <Text fontWeight="bold" py={3}>
+                      Sort By
+                    </Text>
+                    {sort?.length > 0 && (
+                      <span
+                        variant="ghost"
+                        size="xs"
+                        px={2}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          form.setFieldValue("sort", []);
+                        }}
+                      >
+                        - Clear
+                      </span>
+                    )}
+                  </HStack>
+                )}
+              </form.Subscribe>
+
+              <form.Field name="sort">
+                {(field) => (
+                  <Wrap gap={2} mt={2}>
+                    {SORT_OPTIONS.map((opt) => {
+                      const isSelected = field.state.value === opt;
+                      return (
+                        <WrapItem key={opt}>
+                          <Button
+                            type="button"
+                            size="2xs"
+                            variant="outline"
+                            bg={isSelected ? "primary" : "transparent"}
+                            color={isSelected ? "text-white" : "text-black"}
+                            onClick={() => field.handleChange(opt)}
+                            rounded="full"
+                            textStyle={"sm"}
+                          >
+                            {opt}
+                          </Button>
+                        </WrapItem>
                       );
                     })}
-                  </HStack>
-                );
-              }}
-            </form.Field>
-
-            {/* Customizable Checkbox */}
-            <form.Field name="customizable" type="checkbox">
-              {(field) => (
-                <>
-                  <Checkbox.Root
-                    checked={field.state.value}
-                    onCheckedChange={({ checked }) =>
-                      field.handleChange(checked)
-                    }
-                  >
-                    <Checkbox.HiddenInput />
-                    <Checkbox.Control
-                      bg={field.state.value && "primary"}
-                      borderColor={field.state.value && "primary"}
-                    />
-                    <Checkbox.Label>Customizable</Checkbox.Label>
-                  </Checkbox.Root>
-                </>
-              )}
-            </form.Field>
-
-            {/* Sort Options */}
-            <form.Field name="sort">
-              {(field) => (
-                <Wrap spacing={2} mt={2}>
-                  {SORT_OPTIONS.map((opt) => {
-                    const isSelected = field.state.value === opt;
-                    return (
-                      <WrapItem key={opt}>
-                        <Button
-                          type="button"
-                          size="sm"
-                          variant={"outline"}
-                          bg={isSelected ? "primary" : "transparent"}
-                          color={isSelected ? "text-white" : "text-black"}
-                          onClick={() => field.handleChange(opt)}
-                          rounded="full"
-                        >
-                          {opt}
-                        </Button>
-                      </WrapItem>
-                    );
-                  })}
-                </Wrap>
-              )}
-            </form.Field>
-          </>
-        )}
+                  </Wrap>
+                )}
+              </form.Field>
+            </Box>
+          );
+        }}
       </Form>
     </Box>
   );

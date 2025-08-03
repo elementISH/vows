@@ -1,4 +1,4 @@
-import { Heading, Image, Link } from "@/components/atoms";
+import { Heading, Link } from "@/components/atoms";
 import { LoginForm, PageWrapper } from "@/components/organisms";
 import { COMPANY_NAME } from "@/config";
 import { Box, VStack } from "@chakra-ui/react";
@@ -10,7 +10,6 @@ export default function LoginPage() {
 `;
   return (
     <>
-      <Script src="https://accounts.google.com/gsi/client" async defer />
       <PageWrapper alignItems="center">
         <Box
           position="relative"
@@ -53,18 +52,6 @@ export default function LoginPage() {
               px={{ base: 4, sm: 4, md: 8 }}
             >
               <LoginForm />
-              <Box
-                mx={"auto"}
-                w={"full"}
-                textAlign={"end"}
-                textStyle={"sm"}
-                mt={6}
-              >
-                Don't have an account?{" "}
-                <Link href={"/signup"} stopOutlineOnFocus>
-                  Sign up
-                </Link>
-              </Box>
             </Box>
           </VStack>
         </Box>

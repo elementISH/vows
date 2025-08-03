@@ -49,7 +49,7 @@ export default function CartFooter({ onOpenChange }) {
           <Text
             fontWeight="bold"
             textStyle="md"
-            sx={{
+            css={{
               textDecoration: "underline wavy",
               textDecorationThickness: "2px",
               textDecorationSkipInk: "none",
@@ -71,11 +71,14 @@ export default function CartFooter({ onOpenChange }) {
           rounded="xl"
           py={3}
           height="3rem"
+          asChild
         >
-          <Box w={6} h={6} asChild>
-            <CreditCard strokeWidth={1.5} />
-          </Box>
-          Checkout
+          <Link color="text-white" textDecoration="none" href="/checkout">
+            <Box w={6} h={6} asChild>
+              <CreditCard strokeWidth={1.5} />
+            </Box>
+            Checkout
+          </Link>
         </Button>
 
         {/* Secondary buttons in a responsive stack */}
