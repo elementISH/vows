@@ -4,6 +4,7 @@ import { HStack } from "@chakra-ui/react";
 import { SlidersHorizontal } from "lucide-react";
 import { useState } from "react";
 import AdvancedFilterForm from "./advanced-filter-form";
+import { Drawer } from "@/components/atoms";
 
 export default function AdvancedFilter() {
   const [isOpen, setIsOpen] = useState(false);

@@ -4,7 +4,6 @@ import {
   Box,
   VStack,
   Text,
-  HStack,
   FormatNumber,
   useBreakpointValue,
   Stack,

@@ -1,8 +1,7 @@
 import { Flex, Text } from "@chakra-ui/react";
-import { useCartState } from "./states";
 
 export default function QuantityBubble() {
-  const { quantity } = useCartState();
+  const quantity = 3;
   if (quantity <= 0) return null;
   return (
     <>
