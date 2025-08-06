@@ -1,62 +1,201 @@
-const x = {
-  id: 9,
-  name: "nihil consequatur sint",
-  price: 614.58,
-  discount: null,
+const product = {
+  id: 1001,
+  name: "Men's Classic Hoodie",
+  slug: "mens-classic-hoodie",
+  category: "Men",
   description:
-    "Voluptatem maxime reprehenderit quisquam quia atque labore sed. Excepturi cumque doloribus veritatis. Non iusto aut et et.",
-  is_in_wishlist: false,
-  variants: [
+    "A premium quality hoodie perfect for everyday wear. Comfortable, stylish, and available in various colors.",
+  price: 799.99, // base price before any discounts
+  isActive: false,
+  isFeatured: false,
+  isInWishlist: true,
+  hasAddons: true,
+  rating: { rate: 5, amount: 4000 },
+  similarProducts: [
+    { categoryName: "hello world", products: [...similarProductsList] },
+  ],
+  addons: [
+    // addons are always optional for the client to add
     {
-      id: 9,
+      type: "text",
+      fonts: ["Robot", "Open Sans", "Playfair Display"], // i will provide you with list for selection in the dashboard
+      location: "Back", // input from admin
+      allowLetterSpacingControl: true,
+      price: 300,
+    },
+    {
+      type: "pattern",
+      patterns: ["image url 1", "image url 2", "image url 3"], // i will provide you with list for selection in the dashboard
+      maxSelection: 2,
+      allowLetterSpacingControl: true,
+      price: 400,
+    },
+    {
+      type: "images-upload",
+      numberOfImages: 3, // maximum allowed 5
+      price: 500,
+    },
+  ],
+  discount: {
+    type: "percentage", // "percentage" | "flat"
+    value: 20, // 20% off
+    expiresAt: "2025-12-31T23:59:59Z", // optional
+  },
+  coupon: {
+    code: "WELCOME10",
+    type: "flat", // or "percentage"
+    value: 100.0, // 100 EGP
+    isStackable: false, // whether this can be combined with discount
+    validUntil: "2025-10-01T00:00:00Z", // required
+  },
+  sizeChart: [
+    { size: "X-Small", length: 67, width: 61 },
+    { size: "Small", length: 69, width: 63 },
+    { size: "Medium", length: 71, width: 65 },
+    { size: "Large", length: 73, width: 67 },
+    { size: "XLarge", length: 75, width: 69 },
+    { size: "2XLarge", length: 77, width: 71 },
+  ],
+  variants: [
+    // each product variant will be treated as an individual product in the cart
+    {
+      variantId: 201,
+      isActive: true,
       color: {
-        id: 38,
-        imageIndex: 0, // refers to images for that color
-        name: "BlueViolet", // name that color
-        hex_code: "#213071",
+        id: 1,
+        name: "Black",
+        hex: "#000000",
       },
       images: [
         {
-          id: 36,
-          images: [
-            "https://images.unsplash.com/photo-1519985176271-adb1088fa94c",
-            "https://images.unsplash.com/photo-1519985176271-adb1088fa94c",
-          ],
-          is_main: "0",
+          id: 1,
+          url: "https://example.com/images/hoodie-black-1.jpg",
+          isPrimary: true,
+          alt: "Black hoodie front view",
         },
         {
-          id: 36,
-          image: "https://images.unsplash.com/photo-1519985176271-adb1088fa94c",
-          is_main: "0",
-        },
-        {
-          id: 36,
-          image: "https://images.unsplash.com/photo-1519985176271-adb1088fa94c",
-          is_main: "0",
+          id: 2,
+          url: "https://example.com/images/hoodie-black-2.jpg",
+          isPrimary: false,
+          alt: "Black hoodie back view",
         },
       ],
-      size: {
-        id: 3,
-        name: "Large",
-        code: "L",
-      },
-      quantity: "26",
-      is_active: "1",
+      sizes: [
+        // must be sorted in order e.g small, medium, large, x-large
+        {
+          id: 101,
+          name: "Small",
+          sizeCode: "S",
+          stock: 25,
+          sku: "HD-BLK-S",
+        },
+        {
+          id: 102,
+          name: "Medium",
+          sizeCode: "M",
+          stock: 10,
+          sku: "HD-BLK-M",
+        },
+        {
+          id: 103,
+          name: "Large",
+          sizeCode: "L",
+          stock: 0,
+          sku: "HD-BLK-L",
+        },
+      ],
     },
     {
-      id: 93,
+      variantId: 202,
+      isActive: true,
       color: {
-        id: 11,
-        name: "Tomato",
-        hex_code: "#d9e939",
-      },
-      size: {
         id: 2,
-        name: "Medium",
-        code: "M",
+        name: "Navy Blue",
+        hex: "#1E3A8A",
       },
-      quantity: "6",
-      is_active: "0",
+      images: [
+        {
+          id: 3,
+          url: "https://example.com/images/hoodie-blue-1.jpg",
+          isPrimary: true,
+          alt: "Navy hoodie front",
+        },
+        {
+          id: 4,
+          url: "https://example.com/images/hoodie-blue-2.jpg",
+          isPrimary: false,
+          alt: "Navy hoodie side",
+        },
+      ],
+      sizes: [
+        {
+          id: 104,
+          name: "Small",
+          sizeCode: "S",
+          stock: 5,
+          sku: "HD-NVY-S",
+        },
+        {
+          id: 105,
+          name: "Medium",
+          sizeCode: "M",
+          stock: 99,
+          sku: "HD-NVY-M",
+        },
+        {
+          id: 106,
+          name: "Large",
+          sizeCode: "L",
+          stock: 45,
+          sku: "HD-NVY-L",
+        },
+      ],
+    },
+    {
+      variantId: 203,
+      isActive: true,
+      color: {
+        id: 3,
+        name: "Olive Green",
+        hex: "#556B2F",
+      },
+      images: [
+        {
+          id: 5,
+          url: "https://example.com/images/hoodie-olive-1.jpg",
+          isPrimary: true,
+          alt: "Olive green hoodie front",
+        },
+        {
+          id: 6,
+          url: "https://example.com/images/hoodie-olive-2.jpg",
+          isPrimary: false,
+          alt: "Olive green hoodie detail",
+        },
+      ],
+      sizes: [
+        {
+          id: 107,
+          name: "Small",
+          sizeCode: "S",
+          stock: 0,
+          sku: "HD-OLV-S",
+        },
+        {
+          id: 108,
+          name: "Medium",
+          sizeCode: "M",
+          stock: 30,
+          sku: "HD-OLV-M",
+        },
+        {
+          id: 109,
+          name: "Large",
+          sizeCode: "L",
+          stock: 10,
+          sku: "HD-OLV-L",
+        },
+      ],
     },
   ],
 };
