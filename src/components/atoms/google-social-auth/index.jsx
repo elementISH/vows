@@ -2,14 +2,15 @@
 import { Button, GoogleIcon } from "@/components/atoms";
 import { useStore } from "@/store";
 import { googleAuth } from "@/utils/functions";
+import { redirect } from "next/navigation";
 import { toast } from "sonner";
 export default function GoogleLoginButton() {
   const handleLogin = async () => {
-    const { idToken } = await googleAuth();
+    const { accessToken } = await googleAuth();
     const login = useStore.getState().login;
 
-    if (idToken) {
-      const success = await login({ token: idToken }, "google");
+    if (accessToken) {
+      const success = await login({ token: accessToken }, "google");
       if (success.success) {
         redirect("/shop");
       }

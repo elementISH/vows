@@ -14,7 +14,6 @@ export default function GoogleCallback() {
     const idToken = params.get("id_token");
     const accessToken = params.get("access_token");
     const error = params.get("error");
-
     const hasValidTokens = idToken || accessToken;
 
     if (!hasValidTokens || isAuthenticated) {

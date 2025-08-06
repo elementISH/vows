@@ -94,10 +94,10 @@ export default function ShopPage() {
                       id={product?.id || i}
                       key={product?.id || i}
                       image={
-                        // product?.images.length > 0
-                        //   ? product?.images[0]?.image
-                        //   : "/fallback_image.png"
-                        "https://tempdevenvb.ticket-tribe.com/public/storage/product-categories/2747820250712004102498135602_122192076254545081_2931734354189092688_n.jpg"
+                        product?.images.length > 0
+                          ? product?.images[0]?.image
+                          : "/fallback_image.png"
+                        // "https://tempdevenvb.ticket-tribe.com/public/storage/product-categories/2747820250712004102498135602_122192076254545081_2931734354189092688_n.jpg"
                       }
                       imageProps={{
                         fill: true,
@@ -150,8 +150,8 @@ export default function ShopPage() {
                               })
                               ?.map((variant) => variant.size.name || "Unknown")
                       }
-                      price={1999}
-                      originalPrice={2499}
+                      price={product?.price}
+                      originalPrice={product?.discount || null}
                       isWishlisted={product?.is_in_wishlist}
                     />
                   </>

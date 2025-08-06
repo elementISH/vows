@@ -30,7 +30,7 @@ export default function googleAuth() {
       const error = "popup_blocked";
       toast.error("Popup blocked. Please enable popups in your browser.");
       console.error("[Google Auth] Failed to open popup");
-      resolve({ idToken: null, error });
+      resolve({ accessToken: null, error });
       return;
     }
 
@@ -39,7 +39,7 @@ export default function googleAuth() {
       if (event.origin !== window.location.origin) return;
       if (event.data?.source !== "google-auth") return;
 
-      const { idToken, error } = event.data;
+      const { accessToken, error } = event.data;
 
       cleanup();
 
@@ -49,16 +49,16 @@ export default function googleAuth() {
 
       if (error === "access_denied") {
         toast.warning("Access denied. You didn’t authorize the login.");
-        resolve({ idToken: null, error });
+        resolve({ accessToken: null, error });
       } else if (error === "immediate_failed") {
         toast.error("Auto sign-in failed. Please sign in manually.");
-        resolve({ idToken: null, error });
-      } else if (!idToken) {
+        resolve({ accessToken: null, error });
+      } else if (!accessToken) {
         toast.error("Authentication failed. No token returned.");
-        resolve({ idToken: null, error: error || "no_token" });
+        resolve({ accessToken: null, error: error || "no_token" });
       } else {
         console.log("[Google Auth] Token received");
-        resolve({ idToken });
+        resolve({ accessToken });
       }
     };
 
@@ -69,7 +69,7 @@ export default function googleAuth() {
           cleanup();
           toast.warning("Sign-in cancelled. You closed the window.");
           console.warn("[Google Auth] Popup closed by user");
-          resolve({ idToken: null, error: "popup_closed_by_user" });
+          resolve({ accessToken: null, error: "popup_closed_by_user" });
         }
       } catch {
         // Ignore cross-origin error
@@ -83,7 +83,7 @@ export default function googleAuth() {
         popup.close();
       } catch {}
       toast.warning("Sign-in timed out. Please try again.");
-      resolve({ idToken: null, error: "timeout" });
+      resolve({ accessToken: null, error: "timeout" });
     }, 15000);
 
     // Attach listener
