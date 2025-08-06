@@ -2,7 +2,6 @@
 
 import {
   Box,
-  InputGroup,
   Select as ChakraSelect,
   createListCollection,
   Portal,
@@ -13,11 +12,10 @@ import { Input } from "@/components/atoms";
 
 const defaultCountry = COUNTRY_CODES.find((c) => c.code === "EG");
 
-// Create collection with code as the value and label as code string
 const collection = createListCollection({
   items: COUNTRY_CODES,
-  itemToString: (item) => item.code, // Show code like EG, CY
-  itemToValue: (item) => item.code, // Used for controlled value matching
+  itemToString: (item) => item.code,
+  itemToValue: (item) => item.code,
 });
 
 function CountrySelect({ onChange, defaultCode }) {

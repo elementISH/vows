@@ -32,8 +32,6 @@ export default function Navbar() {
       position="relative"
     >
       <Flex align="center" justify="space-between">
-        {/* Brand & Menu Icon */}
-
         <HStack gap={8}>
           <HStack gap={0}>
             {!isDesktop && (
@@ -60,7 +58,6 @@ export default function Navbar() {
               {COMPANY_NAME}
             </Link>
           </HStack>
-          {/* Desktop Links */}
           {isDesktop && (
             <HStack gap={10}>
               {ROUTES.map((route) => (
@@ -79,13 +76,9 @@ export default function Navbar() {
           )}
         </HStack>
 
-        {/* Menu Toggle (Mobile Only) */}
-
-        {/* Right Actions (Handled by you) */}
         <NavBarActions />
       </Flex>
 
-      {/* Mobile Collapsible Routes */}
       {!isDesktop && (
         <Collapsible.Root open={isOpen}>
           <Collapsible.Content>
@@ -100,12 +93,7 @@ export default function Navbar() {
               w="full"
             >
               {ROUTES.map((route) => (
-                <WrapItem
-                  key={route.name}
-                  // flex="1"
-                  textAlign="center"
-                  w={"fit"}
-                >
+                <WrapItem key={route.name} textAlign="center" w={"fit"}>
                   <Link
                     href={route.path}
                     textStyle="sm"

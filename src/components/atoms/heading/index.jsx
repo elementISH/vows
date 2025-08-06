@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  Box,
-  Heading as ChakraHeading,
-  HStack,
-  Stack,
-  Text,
-  useBreakpointValue,
-} from "@chakra-ui/react";
+import { Heading as ChakraHeading, Stack, Text } from "@chakra-ui/react";
 import { useRef, useLayoutEffect, useState, Fragment } from "react";
 import { useHighlight } from "@chakra-ui/react";
 
@@ -21,16 +14,6 @@ export default function Heading({
   wrapperStyles = {},
 }) {
   const headingRef = useRef(null);
-  const [textStyleEm, settextStyleEm] = useState(1);
-
-  useLayoutEffect(() => {
-    if (headingRef.current) {
-      const computedtextStyle = parseFloat(
-        getComputedStyle(headingRef.current).textStyle
-      );
-      settextStyleEm(computedtextStyle / 16); // em relative to root
-    }
-  }, []);
 
   const renderHeading = () => {
     if (highlight) {

@@ -1,5 +1,5 @@
-// slices/authSlice.js
 import axiosInstance from "@/utils/axios-instance";
+import axios from "axios";
 import { toast } from "sonner";
 
 export const createAuthSlice = (set, get) => ({
@@ -22,13 +22,15 @@ export const createAuthSlice = (set, get) => ({
         user: data.user,
         token: data.token,
       });
-
+      axios.post("/api/auth", { isAuthenticated: true });
       toast.success("Logged in successfully");
       return { success: true };
     } catch (err) {
       const msg =
         (err.response.status !== 500 && err.response?.data?.message) ||
         "Login failed";
+      axios.post("/api/auth", { isAuthenticated: false });
+
       toast.error(msg);
       return { success: false, message: msg };
     }
@@ -73,7 +75,9 @@ export const createAuthSlice = (set, get) => ({
           },
         });
       }
+      axios.post("/api/auth", { isAuthenticated: false });
     } catch (error) {
+      axios.post("/api/auth", { isAuthenticated: false });
       console.error("Logout error:", error);
     }
 

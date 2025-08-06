@@ -8,8 +8,8 @@ import {
   Icon,
   parseColor,
 } from "@chakra-ui/react";
-import { useEffect, useRef, useState } from "react";
-import { Button, Tooltip } from "@/components/atoms";
+import { useEffect, useState } from "react";
+import { Button } from "@/components/atoms";
 import { Check, Plus } from "lucide-react";
 import { rgbaToHex } from "@/utils/functions";
 
@@ -21,7 +21,6 @@ export default function CustomColorPopover({
 }) {
   const [color, setColor] = useState(value || "#f87171");
   const [isSaved, setIsSaved] = useState(!!value);
-  // const colorInput = useRef(null);
   useEffect(() => {
     if (value) {
       setColor(value);
@@ -30,7 +29,6 @@ export default function CustomColorPopover({
   }, [value]);
 
   const handleSave = () => {
-    // console.log(colorInput?.current?.value);
     const hex = rgbaToHex(color);
     console.log(hex);
     setIsSaved(true);

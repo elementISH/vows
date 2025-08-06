@@ -68,7 +68,6 @@ export default function VariationSelector({
       gap={{ base: 1, md: 2 }}
       overflowX="auto"
       flexWrap="nowrap"
-      // css={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       className="customScroll"
     >
       <ScrollControls
@@ -87,10 +86,6 @@ export default function VariationSelector({
         px={{ base: 0.5, md: 1 }}
         className="customScrollH"
         minW="0"
-        // css={{
-        //   scrollbarWidth: "none",
-        //   "&::-webkit-scrollbar": { display: "none" },
-        // }}
       >
         {variations.map((item, i) => (
           <Button

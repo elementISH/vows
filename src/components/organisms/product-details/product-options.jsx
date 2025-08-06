@@ -1,6 +1,5 @@
 import { VStack, HStack, Text } from "@chakra-ui/react";
 import { ColorSelector, SizeSelector } from "@/components/molecules";
-import { Palette } from "lucide-react";
 import { Divider, QuantitySelector, Button } from "@/components/atoms";
 import VariationSelector from "./variationSelector";
 import { CustomizationPanel, ShoppingBasket } from "@/components/organisms";
@@ -30,7 +29,6 @@ export default function ProductOptions({
 }) {
   return (
     <VStack ref={editRef} w="full" align="start" gap={6}>
-      {/* Color Picker */}
       <VStack align="start" w="full" gap={3}>
         <Text textStyle="md">Choose your style</Text>
         <ColorSelector
@@ -49,7 +47,6 @@ export default function ProductOptions({
         />
       </VStack>
 
-      {/* Size Picker & Quantity */}
       <VStack align="start" w="full" gap={4}>
         <VStack align="start" w="full" gap={3}>
           <Text display="flex" gap={2} alignItems="center">
@@ -87,7 +84,6 @@ export default function ProductOptions({
         </VStack>
       </VStack>
 
-      {/* Customization CTA */}
       <VStack align="start" w="full" gap={3}>
         <Text textStyle="md">Get creative</Text>
         <CustomizationPanel />
@@ -95,7 +91,6 @@ export default function ProductOptions({
 
       <Divider />
 
-      {/* Bottom Actions & Variations */}
       <VStack w="full" alignItems="start" gap={4} justifyContent="start" pt={2}>
         <HStack gap={{ base: 2 }} w="full" justifyContent={"flex-start"}>
           <Button

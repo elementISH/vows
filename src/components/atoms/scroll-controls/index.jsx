@@ -1,4 +1,3 @@
-// atoms/ScrollControls.jsx
 "use client";
 
 import { ChevronLeft, ChevronRight } from "lucide-react";

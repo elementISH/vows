@@ -1,4 +1,4 @@
-import { Button, Input, Tag, Tooltip } from "@/components/atoms";
+import { Button, Input, Tag } from "@/components/atoms";
 import { HStack, Popover } from "@chakra-ui/react";
 import { Plus } from "lucide-react";
 

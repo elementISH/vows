@@ -1,13 +1,12 @@
 "use client";
-import { Button, Divider, Heading } from "@/components/atoms";
+
 import { Section, Slider } from "@/components/molecules";
 import {
   PageWrapper,
   ProductCard,
   ProductDetails,
-  ShoppingBasket,
 } from "@/components/organisms";
-import { Box, Flex, HStack, VStack } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import { ArrowRight } from "lucide-react";
 import { use } from "react";
 

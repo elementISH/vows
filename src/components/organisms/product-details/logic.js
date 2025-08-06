@@ -9,7 +9,6 @@ export const useProductCarousel = (images, { delay = 5000 }) => {
     Autoplay({
       delay,
       playOnInit: true,
-      // stopOnInteraction: false,
       stopOnMouseEnter: false,
       stopOnFocusIn: false,
     })
@@ -35,8 +34,7 @@ export const useProductCarousel = (images, { delay = 5000 }) => {
   };
 
   const startProgress = () => {
-    stopProgress(); // Clean up any existing progress loop
-
+    stopProgress();
     const autoplay = autoplayRef.current;
     if (!autoplay || !autoplay.isPlaying()) {
       return;

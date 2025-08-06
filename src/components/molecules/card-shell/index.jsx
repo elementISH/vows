@@ -1,7 +1,7 @@
 "use client";
 
-import { Box, HStack, Text, Card, Stack } from "@chakra-ui/react";
-import { Heading } from "@/components/atoms"; // adjust path as needed
+import { Box, Text, Card, Stack } from "@chakra-ui/react";
+import { Heading } from "@/components/atoms";
 
 export default function CardShell({
   topContent,
@@ -25,12 +25,10 @@ export default function CardShell({
       bg="primary"
       {...wrapperStyles}
     >
-      {/* Top content above the card (optional) */}
       {topContent && <Box p={4}>{topContent}</Box>}
 
       <Card.Root variant="subtle" rounded="xl" roundedTop="2xl" {...cardStyles}>
         <Card.Body gap={2} p={4}>
-          {/* Optional Top Layer (Heading + Actions) */}
           {(heading || headingFollower || actions) && (
             <Stack
               justifyContent="space-between"
@@ -68,10 +66,8 @@ export default function CardShell({
             </Stack>
           )}
 
-          {/* Main Content */}
           {children}
 
-          {/* Optional Footer */}
           {footer && <Box pt={4}>{footer}</Box>}
         </Card.Body>
       </Card.Root>

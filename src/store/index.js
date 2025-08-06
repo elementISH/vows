@@ -1,4 +1,3 @@
-// store/index.js
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 import { createCartSlice } from "./slices/cartSlice";

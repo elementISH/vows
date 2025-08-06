@@ -9,21 +9,8 @@ import {
   createListCollection,
   useSelectContext,
 } from "@chakra-ui/react";
-import { Image } from "@/components/atoms"; // Your custom Image component
+import { Image } from "@/components/atoms";
 
-/**
- * Flexible Select Component
- *
- * @param {object[]} items - Array of selectable items.
- * @param {function} itemToString - Function to get label from item.
- * @param {function} itemToValue - Function to get value from item.
- * @param {React.ReactNode} leftElement - Optional icon or text before the value.
- * @param {boolean} switchAsSelect - When true, dynamically use item's icon as left element.
- * @param {string} placeholder - Placeholder text.
- * @param {string[]} defaultValue - Default selected values (array of ids).
- * @param {string | number} width - Width of the select.
- * @param {function} renderItem - Custom render function for each item.
- */
 export default function Select({
   items,
   itemToString = (item) => item.label,

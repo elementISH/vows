@@ -3,41 +3,79 @@
 import { Heading } from "@/components/atoms";
 import { useUserState } from "@/utils/hooks";
 import { Flex } from "@chakra-ui/react";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export default function GoogleCallback() {
   const { isAuthenticated } = useUserState();
+  const router = useRouter();
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.hash.slice(1));
-    const idToken = params.get("id_token");
-    const accessToken = params.get("access_token");
-    const error = params.get("error");
-    const hasValidTokens = idToken || accessToken;
+    const parseParams = () => {
+      const hash = window.location.hash
+        ? new URLSearchParams(window.location.hash.slice(1))
+        : null;
+      const search = window.location.search
+        ? new URLSearchParams(window.location.search)
+        : null;
+      return {
+        idToken: hash?.get("id_token") ?? search?.get("id_token"),
+        accessToken: hash?.get("access_token") ?? search?.get("access_token"),
+        error: hash?.get("error") ?? search?.get("error"),
+        state: hash?.get("state") ?? search?.get("state"),
+      };
+    };
+
+    const { idToken, accessToken, error } = parseParams();
+    const hasValidTokens = Boolean(idToken || accessToken);
 
     if (!hasValidTokens || isAuthenticated) {
-      redirect("/shop");
-      return;
+      if (window.opener) {
+        try {
+          window.close();
+        } catch (e) {
+          router.replace("/shop");
+        }
+      } else {
+        router.replace("/shop");
+      }
     }
 
-    window.opener?.postMessage(
-      {
+    try {
+      const message = {
         source: "google-auth",
         idToken,
-        error,
         accessToken,
-      },
-      window.location.origin
-    );
+        error,
+      };
 
-    window.close();
-  }, [isAuthenticated]);
+      const targetOrigin =
+        (window.opener &&
+          window.opener.location &&
+          window.opener.location.origin) ||
+        window.location.origin ||
+        "*";
+
+      window.opener?.postMessage(message, targetOrigin);
+    } catch (err) {
+      window.opener?.postMessage(
+        {
+          source: "google-auth",
+          idToken,
+          accessToken,
+          error,
+        },
+        "*"
+      );
+    } finally {
+      window.close();
+    }
+  }, [isAuthenticated, router]);
 
   return (
-    <Flex flex="1" justifyContent={"center"} alignItems={"center"}>
+    <Flex flex="1" justifyContent="center" alignItems="center">
       <Heading
-        heading={"Authenticating..."}
+        heading="Authenticating..."
         headingStyles={{ color: "rose.500", textStyle: "4xl" }}
       />
     </Flex>

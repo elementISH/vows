@@ -2,10 +2,10 @@
 import { useState, useEffect } from "react";
 import { Box, VStack, HStack, Text, RadioCard } from "@chakra-ui/react";
 import { Check, Trash2, Eye, MapPinHouse } from "lucide-react";
-import { Button, Link } from "@/components/atoms";
+import { Button } from "@/components/atoms";
 
 export default function AddressActions({
-  mode = "checkout", // 'empty', 'checkout', 'account'
+  mode = "checkout",
   title = mode === "checkout"
     ? "Select delivery address"
     : "Your saved addresses",
@@ -34,7 +34,6 @@ export default function AddressActions({
     setCurrent(id);
     onSelect(id);
     if (mode === "account" && notifyOnSelect) {
-      // toast from sonner
       import("sonner").then(({ toast }) => {
         toast.success("Primary address updated");
       });

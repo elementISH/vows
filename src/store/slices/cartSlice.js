@@ -19,7 +19,6 @@ export const createCartSlice = (set, get) => ({
   addToCart: (item) => {
     set({ loading: true });
 
-    // Optimistic update
     const exists = get().cart.some(
       (i) => i.id === item.id && i.color === item.color && i.size === item.size
     );

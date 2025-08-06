@@ -42,7 +42,6 @@ export default function Invoice() {
             />
             <Divider color="rose.500" my={4} />
 
-            {/* Responsive wrap for summary */}
             <Stack
               direction={{ base: "column", sm: "row", lg: "column", xl: "row" }}
               gap={{ base: 2 }}
@@ -69,7 +68,6 @@ export default function Invoice() {
           <CutoutDivider transform="translateY(1px)" />
 
           <Box bg="rose.100" w="full" px={{ base: 4, md: 12 }} pt="1px">
-            {/* ITEM LIST */}
             <VStack
               gap={0}
               maxH="300px"
@@ -90,7 +88,6 @@ export default function Invoice() {
                   wrap="nowrap"
                   direction={{ base: "column", sm: "row" }}
                 >
-                  {/* Product Content */}
                   <Flex
                     align="start"
                     flex={1}

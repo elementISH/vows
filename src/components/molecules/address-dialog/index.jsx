@@ -5,7 +5,6 @@ import {
   Dialog,
   Portal,
   CloseButton,
-  VStack,
   Box,
   createListCollection,
   Select as ChakraSelect,
@@ -15,7 +14,7 @@ import {
 import { z } from "zod";
 import { Form } from "@/components/molecules";
 import { COUNTRY_CODES } from "@/config";
-import { Button, Input } from "@/components/atoms";
+import { Input } from "@/components/atoms";
 import { useDefaultCountry } from "@/utils/hooks";
 import { zodFieldValidator } from "@/utils/functions";
 
@@ -45,9 +44,8 @@ export default function AddressDialog({
         acc[issue.path[0]] = issue.message;
         return acc;
       }, {});
-      // You need a way to set these errors back in the form state (see below).
       console.warn("Validation errors", formatted);
-      return; // prevent submission
+      return;
     }
 
     onSave(result.data);
@@ -125,7 +123,7 @@ export default function AddressDialog({
                             <CountrySelectorOnly
                               onChange={(e) => {
                                 const code = e?.items?.[0]?.code || "";
-                                field.handleChange(code); // ✅ This binds the value
+                                field.handleChange(code);
                               }}
                             />
                             <Box minH="1.25rem">
@@ -258,7 +256,7 @@ function CountrySelectorOnly({
   const [selected, setSelected] = useState([defaultValue]);
   const handleChange = (e) => {
     setSelected(e.value);
-    onChange?.(e); // Returns shape: { items: [...], value: [...] }
+    onChange?.(e);
   };
   return (
     <ChakraSelect.Root

@@ -1,33 +1,28 @@
 "use client";
 
 import { z } from "zod";
-import { HStack, VStack, Box, Stack } from "@chakra-ui/react";
+import { Box, Stack } from "@chakra-ui/react";
 import { Divider, Input, Link } from "@/components/atoms";
 import { Form, SocialLogin } from "@/components/molecules";
 import { useStore } from "@/store";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
-// 1. Validation schema using Zod
 const loginSchema = z.object({
   email: z.string().email({ message: "Enter a valid email" }),
   password: z.string().min(8, { message: "Minimum 8 characters required" }),
 });
 
-// 2. Default values
 const defaultValues = {
   email: "",
   password: "",
 };
 
 export default function LoginForm() {
-  // 3. Form submit handler
+  const router = useRouter();
   const login = useStore.getState().login;
 
   const handleSubmit = async ({ value }) => {
     const success = await login(value);
-    if (success.success) {
-      redirect("/shop");
-    }
   };
 
   return (
@@ -49,7 +44,6 @@ export default function LoginForm() {
       >
         {(form) => (
           <>
-            {/* Email Field */}
             <form.Field name="email">
               {(field) => (
                 <Input
@@ -64,7 +58,6 @@ export default function LoginForm() {
               )}
             </form.Field>
 
-            {/* Password Field + Forgot Link */}
             <form.Field name="password">
               {(field) => (
                 <>

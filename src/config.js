@@ -16,7 +16,6 @@ export const COMPANY_ROUTES = [
   { name: "Sign up", path: "/signup" },
 ];
 export const MOCK_ITEMS = [
-  // Products
   {
     type: "Product",
     name: "Wedding Ring",
@@ -68,7 +67,6 @@ export const MOCK_ITEMS = [
     description: "Velvet box for engagement or wedding rings",
   },
 
-  // Categories
   {
     type: "Category",
     name: "Gifts",

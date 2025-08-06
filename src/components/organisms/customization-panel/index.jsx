@@ -12,7 +12,7 @@ import {
   Icon,
   HStack,
 } from "@chakra-ui/react";
-import { Check, CheckCircle, Palette, Plus, X } from "lucide-react";
+import { Check, Palette, Plus, X } from "lucide-react";
 import { Button, Image, Input } from "@/components/atoms";
 
 const fontOptions = [
@@ -89,7 +89,6 @@ export default function CustomizationPanel({ maxImages = 3 }) {
     };
 
     console.log("Submitted customization:", payload);
-    // You could now fire an API or propagate to parent
   };
 
   return (
@@ -116,7 +115,6 @@ export default function CustomizationPanel({ maxImages = 3 }) {
               me={2}
             >
               <Box w="full" display="flex" flexDirection="column" gap={6}>
-                {/* TEXT + FONT */}
                 <Box>
                   <Text fontWeight="semibold" textStyle="md" mb={2}>
                     Text & Font
@@ -201,7 +199,6 @@ export default function CustomizationPanel({ maxImages = 3 }) {
                   </Slider.Root>
                 </Box>
 
-                {/* PATTERN */}
                 <Box>
                   <Text fontWeight="semibold" textStyle="md" mb={2}>
                     Pattern
@@ -251,7 +248,6 @@ export default function CustomizationPanel({ maxImages = 3 }) {
                   )}
                 </Box>
 
-                {/* IMAGES */}
                 <Box>
                   <Text fontWeight="semibold" textStyle="md" mb={2}>
                     Upload Images ({maxImages} required)

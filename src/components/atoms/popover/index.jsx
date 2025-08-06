@@ -1,4 +1,3 @@
-// atoms/PopoverMenu.jsx
 "use client";
 
 import { Popover as ChakraPopover, Portal } from "@chakra-ui/react";
@@ -7,7 +6,6 @@ import { useState } from "react";
 export default function Popover({
   trigger,
   children,
-  buttonProps = {},
   contentProps = {},
   bodyProps = {},
 }) {

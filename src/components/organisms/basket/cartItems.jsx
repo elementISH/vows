@@ -69,7 +69,6 @@ export default function CartItems({ switchActions = false }) {
 function CartItem({ item, switchActions }) {
   const [quantity, setQuantity] = useState(item.quantity);
 
-  // Responsive values
   const direction = useBreakpointValue({ base: "column", md: "row" });
   const imageSize = useBreakpointValue({ base: "64px", md: "80px" });
   const titleTextStyle = useBreakpointValue({ base: "sm", md: "md" });
@@ -98,7 +97,6 @@ function CartItem({ item, switchActions }) {
         nextProps={{ width: 250, height: 250 }}
       />
 
-      {/* Text & Quantity */}
       <VStack align="start" gap={1} flex={1} minW={0} w="full">
         <Text
           fontWeight="semibold"
@@ -116,8 +114,6 @@ function CartItem({ item, switchActions }) {
         >
           {item.size}, <FormatColor value={item.color} ghost />
         </Text>
-
-        {/* Inline Quantity/Actions for md+ */}
         {!showBottomSection &&
           (switchActions ? (
             <HStack gap={2}>

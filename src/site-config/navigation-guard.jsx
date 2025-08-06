@@ -1,4 +1,3 @@
-// app/providers/navigation-guard.tsx
 "use client";
 
 import { createContext, useContext, useEffect, useRef, useState } from "react";
@@ -9,7 +8,6 @@ const NavigationGuardContext = createContext();
 export function NavigationGuardProvider({ children }) {
   const router = useRouter();
   const [shouldBlock, setShouldBlock] = useState(false);
-  // const [confirmMessage, setConfirmMessage] = useState("Leave without saving?");
   const [pendingNavigation, setPendingNavigation] = useState(null);
 
   const originalPush = useRef(router.push);

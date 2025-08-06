@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Box, Flex, HStack } from "@chakra-ui/react";
+import { Box, HStack } from "@chakra-ui/react";
 import { ScrollControls, Image } from "@/components/atoms";
 
 export default function ThumbnailScroller({ images, selected, onSelect }) {
@@ -31,7 +31,6 @@ export default function ThumbnailScroller({ images, selected, onSelect }) {
     });
   };
 
-  // 🔄 Scroll selected thumbnail into view
   useEffect(() => {
     const container = scrollRef.current;
     const target = thumbnailRefs.current[selected];
@@ -100,7 +99,6 @@ export default function ThumbnailScroller({ images, selected, onSelect }) {
         ))}
       </HStack>
 
-      {/* Overlay Buttons */}
       <ScrollControls
         type="prev"
         onClick={() => scroll("left")}

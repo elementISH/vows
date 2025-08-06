@@ -4,7 +4,6 @@ import { z } from "zod";
 import {
   Box,
   Field,
-  HStack,
   Icon,
   Stack,
   Text,
@@ -18,7 +17,6 @@ import { toast } from "sonner";
 import { PageWrapper } from "@/components/organisms";
 import { Mail } from "lucide-react";
 import { zodFieldValidator } from "@/utils/functions";
-// Validation Schema
 const contactSchema = {
   first_name: z
     .string()

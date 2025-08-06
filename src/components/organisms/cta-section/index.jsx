@@ -2,13 +2,7 @@
 
 import { Button, Heading, Link, SnakeSvg } from "@/components/atoms";
 import { CategoryCard, Section } from "@/components/molecules";
-import {
-  Box,
-  HStack,
-  Stack,
-  VStack,
-  useBreakpointValue,
-} from "@chakra-ui/react";
+import { Box, VStack, useBreakpointValue } from "@chakra-ui/react";
 
 export default function CtaSection() {
   const isMobile = useBreakpointValue({ base: true, xl: false });
@@ -31,7 +25,6 @@ export default function CtaSection() {
         mb: 12,
       }}
     >
-      {/* Desktop: Left SVG + Card */}
       {!isMobile && (
         <VStack
           position="absolute"
@@ -51,7 +44,6 @@ export default function CtaSection() {
         </VStack>
       )}
 
-      {/* Desktop: Right SVG + Card */}
       {!isMobile && (
         <VStack
           position="absolute"
@@ -129,7 +121,6 @@ export default function CtaSection() {
         </Link>
       </Button>
 
-      {/* Mobile: Two cards side-by-side below heading */}
       {/* {isMobile && (
         <HStack gap={4} justify="center" mt={8}>
           <CategoryCard

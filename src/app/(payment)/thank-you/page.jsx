@@ -1,7 +1,7 @@
 import { Button, Heading, Link } from "@/components/atoms";
 import { Invoice, Section } from "@/components/molecules";
 import { PageWrapper } from "@/components/organisms";
-import { Box, Flex, VStack, DataList } from "@chakra-ui/react";
+import { Box, VStack, DataList } from "@chakra-ui/react";
 import { Crosshair } from "lucide-react";
 
 export default function ThankYouPage() {
@@ -16,7 +16,6 @@ export default function ThankYouPage() {
           width: "full",
         }}
       >
-        {/* Left Side */}
         <VStack
           alignItems="start"
           justifyContent="start"
@@ -92,8 +91,6 @@ export default function ThankYouPage() {
             </Button>
           </VStack>
         </VStack>
-
-        {/* Right Side */}
         <Box flex={1} w="full" mt={{ base: 8, lg: 0 }}>
           <Box mx={{ base: "auto", lg: "0" }} maxW={{ base: "100%" }}>
             <Invoice />

@@ -1,22 +1,7 @@
-import {
-  Button,
-  Drawer,
-  Heading,
-  Image,
-  Input,
-  Link,
-} from "@/components/atoms";
-import {
-  Box,
-  HStack,
-  Menu,
-  Portal,
-  Show,
-  useBreakpointValue,
-} from "@chakra-ui/react";
-import { History, LogOut, Search, User } from "lucide-react";
+import { Button, Link } from "@/components/atoms";
+import { HStack, Menu, Portal } from "@chakra-ui/react";
+import { History, LogOut, User } from "lucide-react";
 import React from "react";
-import { handleSearch } from "./logic";
 import { useNavbarState } from "./states";
 import { ShoppingBasket } from "@/components/organisms";
 import { SearchTrigger } from "@/components/molecules";

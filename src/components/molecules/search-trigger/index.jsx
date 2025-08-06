@@ -14,7 +14,6 @@ import {
 import { Search } from "lucide-react";
 import Fuse from "fuse.js";
 
-// Highlight matching text
 function highlight(text, query) {
   if (!query) return text;
   const regex = new RegExp(`(${query})`, "gi");
@@ -29,7 +28,6 @@ function highlight(text, query) {
   );
 }
 
-// Fuse.js config
 const fuse = new Fuse(MOCK_ITEMS, {
   keys: ["name", "description", "type"],
   includeScore: true,

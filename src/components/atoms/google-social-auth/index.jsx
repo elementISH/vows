@@ -2,8 +2,7 @@
 import { Button, GoogleIcon } from "@/components/atoms";
 import { useStore } from "@/store";
 import { googleAuth } from "@/utils/functions";
-import { redirect } from "next/navigation";
-import { toast } from "sonner";
+
 export default function GoogleLoginButton() {
   const handleLogin = async () => {
     const { accessToken } = await googleAuth();
@@ -11,10 +10,6 @@ export default function GoogleLoginButton() {
 
     if (accessToken) {
       const success = await login({ token: accessToken }, "google");
-      if (success.success) {
-        redirect("/shop");
-      }
-      return;
     }
   };
 

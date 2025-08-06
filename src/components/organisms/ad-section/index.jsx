@@ -20,7 +20,6 @@ export default function AdSection() {
         gap={{ base: 6, lg: 12 }}
         align="stretch"
       >
-        {/* Left Side (Image + Text + Arrow on lg and up) */}
         <Flex
           w="full"
           flex={1}
@@ -29,7 +28,6 @@ export default function AdSection() {
           align="start"
           direction={{ base: "column-reverse", md: "column" }}
         >
-          {/* Image */}
           <Box
             position="relative"
             w="full"
@@ -61,7 +59,6 @@ export default function AdSection() {
             />
           </Box>
 
-          {/* Text + Arrow */}
           <HStack
             gap={4}
             alignItems="start"
@@ -116,7 +113,6 @@ export default function AdSection() {
           </HStack>
         </Flex>
 
-        {/* Right Side (Text + Image) */}
         <VStack
           w="full"
           flex={1}
@@ -124,7 +120,6 @@ export default function AdSection() {
           gap={{ base: 6, md: 8 }}
           align="start"
         >
-          {/* Text */}
           <Heading
             heading="Curated collections for all kinds of couples"
             highlight="collections"
@@ -146,7 +141,6 @@ export default function AdSection() {
             }}
           />
 
-          {/* Image */}
           <Box
             position="relative"
             w="full"

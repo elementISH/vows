@@ -22,23 +22,13 @@ import {
   Flex,
   FormatNumber,
   HStack,
-  RadioCard,
   Stack,
   Text,
   VStack,
   Wrap,
 } from "@chakra-ui/react";
-import {
-  Banknote,
-  Check,
-  CreditCard,
-  Info,
-  MapPinHouse,
-  TicketPercent,
-  Trash,
-} from "lucide-react";
+import { CreditCard, Info, TicketPercent, Trash } from "lucide-react";
 import { useState } from "react";
-import { toast } from "sonner";
 
 export default function CheckoutPage() {
   const [paymentMethod, setPaymentMethod] = useState("COW");
@@ -72,7 +62,6 @@ export default function CheckoutPage() {
 
   const handleSelect = (id) => {
     setSelectedId(id);
-    // use `id` for delivery or primary-address logic
   };
 
   const handleView = (addr) => {
@@ -109,7 +98,7 @@ export default function CheckoutPage() {
               order={{
                 base: 2,
                 md: 2,
-                lg: 0, // appears on top in large view
+                lg: 0,
               }}
             >
               <AddressActions
@@ -192,7 +181,6 @@ export default function CheckoutPage() {
                 order: 1,
               }}
             >
-              {/* Main card content here */}
               <CartItems switchActions />
             </CardShell>
           </VStack>
@@ -337,7 +325,6 @@ export default function CheckoutPage() {
                   </Link>
                 </Button>
 
-                {/* Payment method logos */}
                 <Wrap
                   gap={{ base: 2, sm: 4 }}
                   align="center"

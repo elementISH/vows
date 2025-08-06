@@ -5,33 +5,12 @@ import {
   Input as ChakraInput,
   InputGroup,
   CloseButton,
-  Text,
   Box,
 } from "@chakra-ui/react";
 import { useRef, useState, useEffect } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/atoms";
 
-/**
- * @typedef {import("@chakra-ui/react").InputProps} InputProps
- */
-
-/**
- * @param {Object} props
- * @param {string} props.name
- * @param {string} [props.label]
- * @param {string} [props.helperText]
- * @param {string} [props.placeholder]
- * @param {boolean} [props.isPassword]
- * @param {boolean} [props.isClearable]
- * @param {boolean} [props.enableDebounce]
- * @param {function} [props.onDebouncedChange]
- * @param {string} [props.defaultValue]
- * @param {React.ReactNode} [props.startElement]
- * @param {React.ReactNode} [props.endElement]
- * @param {import("@tanstack/react-form").FieldApi} [props.field]
- * @param {any} rest
- */
 export default function Input({
   name,
   label,
@@ -69,7 +48,6 @@ export default function Input({
     return String(err);
   })();
 
-  // Debounce handler
   useEffect(() => {
     if (!enableDebounce || typeof onDebouncedChange !== "function") return;
     const timeout = setTimeout(() => {

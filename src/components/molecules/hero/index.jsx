@@ -14,7 +14,6 @@ export default function Hero() {
       overflow="hidden"
       gap={{ base: 0 }}
     >
-      {/* Text Column */}
       <Flex
         flex={1}
         direction="column"
@@ -73,11 +72,7 @@ export default function Hero() {
               fontWeight="bold"
               asChild
             >
-              <Link
-                color="text-white"
-                textDecoration="none"
-                href={"/shop"}
-              >
+              <Link color="text-white" textDecoration="none" href={"/shop"}>
                 Shop now
               </Link>
             </Button>
@@ -85,7 +80,6 @@ export default function Hero() {
         </VStack>
       </Flex>
 
-      {/* Image Column */}
       <Flex
         flex={1}
         justify="center"
@@ -93,7 +87,6 @@ export default function Hero() {
         position="relative"
         px={{ base: 4, md: 0 }}
       >
-        {/* Decorative Background Boxes */}
         <HStack
           gap={{ base: 12, md: 20 }}
           position="absolute"
@@ -118,7 +111,6 @@ export default function Hero() {
           </For>
         </HStack>
 
-        {/* Main Blob Image */}
         <Box zIndex={1} mt={"3rem"}>
           <BlobWrapper size="xl">
             <Image

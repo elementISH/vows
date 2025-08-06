@@ -35,7 +35,6 @@ export default function CartFooter({ onOpenChange }) {
       pt={4}
       px={{ base: 4, sm: 6, md: 8 }}
     >
-      {/* Subtotal + Savings */}
       <VStack w="full" gap={2} align="stretch">
         <HStack justify="space-between" w="full">
           <Text textStyle="md">Subtotal</Text>
@@ -61,9 +60,7 @@ export default function CartFooter({ onOpenChange }) {
         </HStack>
       </VStack>
 
-      {/* Buttons */}
       <VStack w="full" gap={3}>
-        {/* Checkout Button */}
         <Button
           bg="primary"
           fontWeight="bold"
@@ -81,7 +78,6 @@ export default function CartFooter({ onOpenChange }) {
           </Link>
         </Button>
 
-        {/* Secondary buttons in a responsive stack */}
         <Stack
           direction={{ base: "column", sm: "row" }}
           gap={{ base: 3, sm: 4 }}

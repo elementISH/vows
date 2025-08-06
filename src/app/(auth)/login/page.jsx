@@ -4,17 +4,16 @@ import { LoginForm, PageWrapper } from "@/components/organisms";
 import { COMPANY_NAME } from "@/config";
 import { useUserState } from "@/utils/hooks";
 import { Box, VStack } from "@chakra-ui/react";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const backgroundGradient = `
  linear-gradient(to right, #FBE9E7 0%, 26.610645651817322%, #F4CBC5 53.221291303634644%, 76.61064565181732%, #FAE7E3 100%);
 `;
-
+  const router = useRouter();
   const { isAuthenticated } = useUserState();
   if (isAuthenticated) {
-    redirect("/shop");
-    return;
+    router.replace("/shop");
   }
   return (
     <>

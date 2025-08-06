@@ -9,7 +9,6 @@ export { default as Card } from "./card";
 export { default as Divider } from "./divider";
 export { default as Tag } from "./tag";
 export { default as WishlistButton } from "./wishlist-button";
-export { default as DotButton } from "./dot-button";
 export { default as ScrollControls } from "./scroll-controls";
 export { default as Image } from "./image";
 export { default as SnakeSvg } from "./snake-svg";

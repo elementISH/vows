@@ -1,4 +1,3 @@
-// utils/color.ts
 export function rgbaToHex(rgba) {
   if (!rgba.startsWith("rgb")) return rgba;
 

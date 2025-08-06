@@ -49,7 +49,7 @@ input[type="number"] {
   appearance: textfield;
 }
 input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 50px #f9eeeb inset; /* Change the color to your own background color */
+  -webkit-box-shadow: 0 0 0 50px #f9eeeb inset; 
   -webkit-text-fill-color: inherit;
 }
 

@@ -1,6 +1,5 @@
 "use client";
 
-import { z } from "zod";
 import {
   Box,
   Text,
@@ -15,7 +14,6 @@ import { Check, Minus, Plus, Star, X } from "lucide-react";
 import { Form } from "@/components/molecules";
 import { Button, Input } from "@/components/atoms";
 import { toast } from "sonner";
-import { useEffect, useState } from "react";
 
 const defaultValues = {
   categories: [],
@@ -74,7 +72,6 @@ export default function AdvancedFilterForm() {
     }
 
     console.log("Filtered values:", value);
-    // Proceed with filtering logic
   };
 
   return (
@@ -96,7 +93,6 @@ export default function AdvancedFilterForm() {
         {(form) => {
           return (
             <Box maxH={"98%"} overflow={"auto"} pe={2} className="customScroll">
-              {/* Categories */}
               <Collapsible.Root>
                 <form.Subscribe
                   selector={(state) => state.values["categories"]}
@@ -174,7 +170,6 @@ export default function AdvancedFilterForm() {
                 </Collapsible.Content>
               </Collapsible.Root>
 
-              {/* Subcategories */}
               <Collapsible.Root>
                 <form.Subscribe
                   selector={(state) => state.values["subcategories"]}
@@ -253,7 +248,6 @@ export default function AdvancedFilterForm() {
                 </Collapsible.Content>
               </Collapsible.Root>
 
-              {/* Color Selector */}
               <Collapsible.Root>
                 <form.Subscribe selector={(state) => state.values["color"]}>
                   {(color) => (
@@ -352,7 +346,6 @@ export default function AdvancedFilterForm() {
                 </Collapsible.Content>
               </Collapsible.Root>
 
-              {/* Price Range */}
               <Collapsible.Root>
                 <Collapsible.Trigger
                   py="3"
@@ -402,8 +395,6 @@ export default function AdvancedFilterForm() {
                   </HStack>
                 </Collapsible.Content>
               </Collapsible.Root>
-
-              {/* Rating */}
 
               <form.Subscribe selector={(state) => state.values["rating"]}>
                 {(rating) => (
@@ -465,7 +456,6 @@ export default function AdvancedFilterForm() {
                 }}
               </form.Field>
 
-              {/* Customizable */}
 
               <Text fontWeight="bold" py={3}>
                 Customizable
@@ -486,7 +476,6 @@ export default function AdvancedFilterForm() {
                         _focus={{ outline: "none" }}
                         bg={field.state.value ? "primary" : "rose.200"}
                       >
-                        {/* Removed setState from here */}
                         <Switch.Thumb _focus={{ outline: "none" }}>
                           <Switch.ThumbIndicator
                             fallback={<X color="black" size={14} />}
@@ -503,7 +492,6 @@ export default function AdvancedFilterForm() {
                 )}
               </form.Field>
 
-              {/* Sort */}
               <form.Subscribe selector={(state) => state.values["sort"]}>
                 {(sort) => (
                   <HStack>

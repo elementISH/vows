@@ -62,7 +62,6 @@ export default function PolicyPage() {
       mx="auto"
     >
       <Stack gap={{ base: 4, md: 8 }}>
-        {/* Intro */}
         <Box textAlign="center">
           <Heading as="h1" size="2xl" mb={4}>
             Store Policies
@@ -82,7 +81,6 @@ export default function PolicyPage() {
           </Text>
         </Box>
 
-        {/* Policy Sections */}
         {sections.map((section, index) => (
           <Box
             key={index}
@@ -106,7 +104,6 @@ export default function PolicyPage() {
           </Box>
         ))}
 
-        {/* Closing */}
         <Box textAlign="center" pt={8}>
           <Divider mb={4} />
           <Text textStyle="sm" color="gray.500">

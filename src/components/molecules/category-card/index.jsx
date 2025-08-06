@@ -19,8 +19,6 @@ export default function CategoryCard({ wrapperStyles, rootStyles }) {
     <Card
       h={height}
       w={width}
-      // minH="20rem"
-      // minW="14rem"
       bgImage="/test_category.png"
       title="Accessories"
       titleStyles={{

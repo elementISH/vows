@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, Flex, HStack, ProgressCircle } from "@chakra-ui/react";
 import { Play, Pause, Share2, ChevronLeft } from "lucide-react";
 import { Button, Image, WishlistButton } from "@/components/atoms";
@@ -29,30 +29,26 @@ export default function ProductCarousel({ images }) {
   const handleThumbnailClick = (idx) => {
     if (!emblaApi) return;
 
-    emblaApi.scrollTo(idx, false); // Jump instantly
-    emblaApi.reInit(); // Force fade plugin to reapply
+    emblaApi.scrollTo(idx, false);
+    emblaApi.reInit();
 
-    autoplayRef.current?.reset(); // Restart autoplay plugin
-    startProgress(); // Restart progress bar animation
-    setSelected(idx); // Force update selected index manually
+    autoplayRef.current?.reset();
+    startProgress();
+    setSelected(idx);
   };
   useEffect(() => {
     if (!emblaApi || !images?.length) return;
-
-    // 🛡️ Fallback if current index doesn't exist in new image array
     const newMaxIndex = images?.length - 1;
     const correctedIndex = selected > newMaxIndex ? 0 : selected;
-
-    // If correction is needed, update carousel index and selected state
     if (correctedIndex !== selected) {
-      emblaApi.scrollTo(correctedIndex, true); // Instantly scroll without transition
+      emblaApi.scrollTo(correctedIndex, true);
       setSelected(correctedIndex);
     }
 
-    autoplayRef.current?.reset(); // Reset autoplay timer
-    emblaApi.reInit(); // Re-initialize carousel (required for fade)
-    cancelAnimationFrame(rafId.current); // Stop previous progress animation
-    startProgress(); // Restart progress
+    autoplayRef.current?.reset();
+    emblaApi.reInit();
+    cancelAnimationFrame(rafId.current);
+    startProgress();
   }, [images]);
 
   return (
@@ -67,10 +63,8 @@ export default function ProductCarousel({ images }) {
       h={"full"}
       mx="auto"
     >
-      {/* Main Image Carousel */}
       <Box
         position="relative"
-        // height={"full"}
         height={{ base: "18rem", sm: "20rem", md: "20rem", lg: "30rem" }}
         maxW={"100%"}
         maxH={"100%"}
@@ -118,7 +112,6 @@ export default function ProductCarousel({ images }) {
           </Box>
         </Box>
 
-        {/* Play / Pause Toggle */}
         <HStack position="absolute" top={2} left={4}>
           <Box position="relative" display="inline-block">
             <Button
@@ -163,8 +156,6 @@ export default function ProductCarousel({ images }) {
             )}
           </Button>
         </HStack>
-
-        {/* Progress Circle */}
         <Box position="absolute" bottom={2} left={4}>
           <ProgressCircle.Root
             value={progressValue}
@@ -207,8 +198,6 @@ export default function ProductCarousel({ images }) {
           <WishlistButton onClick={handleLike} isFilled={liked} />
         </HStack>
       </Box>
-
-      {/* Thumbnails */}
       <ThumbnailScroller
         images={images}
         selected={selected}

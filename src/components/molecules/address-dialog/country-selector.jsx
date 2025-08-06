@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  Box,
   Select as ChakraSelect,
   createListCollection,
   Portal,

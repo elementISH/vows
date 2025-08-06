@@ -1,15 +1,10 @@
-// Form.jsx
-
 "use client";
 
 import { createFormHook, createFormHookContexts } from "@tanstack/react-form";
 import { Button } from "@/components/atoms";
 import { Box, Field } from "@chakra-ui/react";
-
-// Setup contexts for field and form
 const { fieldContext, formContext } = createFormHookContexts();
 
-// Setup reusable form hook
 export const { useAppForm } = createFormHook({
   fieldContext,
   formContext,
@@ -34,7 +29,6 @@ export const { useAppForm } = createFormHook({
   },
 });
 
-// Form component
 export default function Form({
   children,
   defaultValues = {},

@@ -13,7 +13,7 @@ export default function WishlistButton({ onClick, isFilled = false }) {
 
   const handleClick = (e) => {
     setAnimateHeart(true);
-    setTimeout(() => setAnimateHeart(false), 400); // match animation duration
+    setTimeout(() => setAnimateHeart(false), 400);
 
     onClick?.(e);
   };

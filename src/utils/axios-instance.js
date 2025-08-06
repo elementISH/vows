@@ -1,4 +1,3 @@
-// utils/axiosInstance.js
 import axios from "axios";
 import { useStore } from "@/store";
 import { API_BASE_URL } from "@/config";
@@ -7,7 +6,7 @@ const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
   headers: {
     Accept: "application/json",
-    "Accept-Language": "en", // default
+    "Accept-Language": "en",
   },
 });
 

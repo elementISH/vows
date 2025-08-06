@@ -34,7 +34,6 @@ export default function googleAuth() {
       return;
     }
 
-    // Listen for response from redirect page
     const messageHandler = (event) => {
       if (event.origin !== window.location.origin) return;
       if (event.data?.source !== "google-auth") return;
@@ -62,7 +61,6 @@ export default function googleAuth() {
       }
     };
 
-    // Watch if user closes popup manually
     const popupCheck = setInterval(() => {
       try {
         if (popup.closed) {
@@ -76,7 +74,6 @@ export default function googleAuth() {
       }
     }, 500);
 
-    // Timeout fallback
     const timeout = setTimeout(() => {
       cleanup();
       try {
@@ -86,10 +83,8 @@ export default function googleAuth() {
       resolve({ accessToken: null, error: "timeout" });
     }, 15000);
 
-    // Attach listener
     window.addEventListener("message", messageHandler);
 
-    // Cleanup everything
     function cleanup() {
       clearTimeout(timeout);
       clearInterval(popupCheck);

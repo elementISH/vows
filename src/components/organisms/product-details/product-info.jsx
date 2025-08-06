@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  VStack,
-  HStack,
-  Text,
-  Stack,
-  useBreakpointValue,
-} from "@chakra-ui/react";
+import { VStack, HStack, Text } from "@chakra-ui/react";
 import { Button, Heading } from "@/components/atoms";
 import { Star } from "lucide-react";
 import { FormatNumber } from "@chakra-ui/react";
@@ -19,7 +13,6 @@ export default function ProductInfo({ isMobile = false, editEl }) {
 
   return (
     <VStack align="start" gap={4}>
-      {/* Category + Title + Ratings */}
       <VStack align="start" gap={2} w="full">
         <Text
           textStyle={{ base: "sm", md: "md", lg: "lg" }}
@@ -57,7 +50,6 @@ export default function ProductInfo({ isMobile = false, editEl }) {
         </HStack>
       </VStack>
 
-      {/* Pricing */}
       <HStack gap={3} align="baseline" mt={1}>
         <Text
           textStyle={{ base: "lg", md: "xl", lg: "2xl" }}
@@ -75,7 +67,6 @@ export default function ProductInfo({ isMobile = false, editEl }) {
         </Text>
       </HStack>
 
-      {/* Description */}
       <Text
         textStyle={{ base: "sm", md: "sm", xl: "md" }}
         color="fg.muted"

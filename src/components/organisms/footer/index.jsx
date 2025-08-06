@@ -37,7 +37,6 @@ export default function Footer() {
 
   return (
     <Box bg="rose.100" px={{ base: 4, sm: 4, md: 8 }} py={{ base: 8, md: 12 }}>
-      {/* Top Section */}
       <Stack
         direction={{ base: "column", md: "row" }}
         w="full"
@@ -45,7 +44,6 @@ export default function Footer() {
         justify="space-between"
         align="start"
       >
-        {/* Left Column */}
         <VStack align="start" gap={4} w={{ base: "100%", md: "40%" }}>
           <VStack gap={2} alignItems={{ base: "start", sm: "start" }}>
             <Text fontWeight="bold" textStyle="lg">
@@ -57,7 +55,6 @@ export default function Footer() {
             </Text>
           </VStack>
 
-          {/* Language Select */}
           <Select
             items={LANGUAGE_OPTIONS}
             itemToString={(item) => item.label}
@@ -93,16 +90,13 @@ export default function Footer() {
           />
         </VStack>
 
-        {/* Right Column */}
         <Flex
-          // direction={{ base: "column", base: "row" }}
           align={{ base: "start", md: "flex-end" }}
           justify={{ base: "start", md: "flex-end" }}
           gap={{ base: 8, md: 16 }}
           w="full"
           flex={1}
         >
-          {/* Company Links */}
           <VStack align="start" gap={2}>
             <Text fontWeight="bold" textStyle="md">
               Company
@@ -120,7 +114,6 @@ export default function Footer() {
             ))}
           </VStack>
 
-          {/* Category Links */}
           <VStack align="start" gap={2}>
             <Text fontWeight="bold" textStyle="md">
               Categories
@@ -140,10 +133,8 @@ export default function Footer() {
         </Flex>
       </Stack>
 
-      {/* Divider */}
       <Divider my={10} color="fg.muted/20" />
 
-      {/* Bottom Section */}
       <Flex
         direction={{ base: "column", md: "row" }}
         align={{ base: "flex-start", md: "center" }}

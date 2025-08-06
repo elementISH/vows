@@ -4,7 +4,7 @@ import { AdvancedFilter, Section, Slider } from "@/components/molecules";
 import { PageWrapper, ProductCard } from "@/components/organisms";
 import { useShopState } from "@/utils/hooks";
 import { Box, Flex, HStack, VStack, Wrap, WrapItem } from "@chakra-ui/react";
-import { ArrowLeft, ArrowRight, Filter, SlidersHorizontal } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export default function ShopPage() {
   const { composedShop } = useShopState();
@@ -101,7 +101,6 @@ export default function ShopPage() {
                       }
                       imageProps={{
                         fill: true,
-                        // unoptimized: true,
                       }}
                       title={product?.name || "Unkown"}
                       colors={
@@ -142,7 +141,6 @@ export default function ShopPage() {
                                   "4XL",
                                   "5XL",
                                 ].indexOf(b.size.code.toUpperCase());
-                                // Unknown codes go last
                                 return (
                                   (indexA === -1 ? 999 : indexA) -
                                   (indexB === -1 ? 999 : indexB)

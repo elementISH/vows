@@ -6,7 +6,7 @@ import {
   Drawer as ChakraDrawer,
   Portal,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function Drawer({
   trigger,

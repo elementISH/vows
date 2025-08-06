@@ -63,13 +63,11 @@ export const createShopSlice = (set, get) => ({
       });
       const updatedProduct = response.data.data;
 
-      // sync state
       const updatedProducts = get().products?.map((p) =>
         p.id === updatedProduct.id ? updatedProduct : p
       );
       set({ products: updatedProducts });
 
-      // update currentProduct if it's the same
       if (get().currentProduct?.id === updatedProduct.id) {
         set({ currentProduct: updatedProduct });
       }

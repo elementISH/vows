@@ -265,7 +265,7 @@ export default function ProductDetails() {
           onOpenChange={(e) => {
             if (!e.open) setShowDeleteDialogIndex(null);
           }}
-          lazyMount={false} // Important: force mount
+          lazyMount={false}
         >
           <Portal>
             <Dialog.Backdrop />

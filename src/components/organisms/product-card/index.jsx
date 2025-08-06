@@ -42,7 +42,6 @@ export default function ProductCard({
   const handleWishlist = async () => {
     if (!id) return;
 
-    // Optimistically update the UI
     const previousState = wishlisted;
     setWishListed(!previousState);
 
@@ -53,7 +52,6 @@ export default function ProductCard({
         await addToWishlist(id);
       }
     } catch (error) {
-      // Rollback UI
       setWishListed(previousState);
       toast.error("Failed to update wishlist. Try again.");
       console.error("Wishlist toggle failed:", error);

@@ -1,16 +1,5 @@
 import { Button as ChakraButton, IconButton } from "@chakra-ui/react";
 
-/**
- * @typedef {import("@chakra-ui/react").ButtonProps} ButtonProps
- */
-
-/**
- * @param {ButtonProps & {
- *   variant?: "solid" | "outline",
- *   loading?: boolean,
- *   icon?: boolean,
- * }} props
- */
 export default function Button({
   children,
   variant = "solid",

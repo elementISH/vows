@@ -1,11 +1,4 @@
 import { Icon } from "@chakra-ui/react";
-/**
- * @typedef {import("@chakra-ui/react").IconProps} IconProps
- */
-
-/**
- * @param {IconProps} props
- */
 export default function AppleIcon({ ...props }) {
   return (
     <Icon

@@ -12,7 +12,6 @@ import {
 import { Input } from "@/components/atoms";
 import { useState } from "react";
 import { CountrySelector, Form } from "@/components/molecules";
-import { toast } from "sonner";
 import { zodFieldValidator } from "@/utils/functions";
 import { COUNTRY_CODES } from "@/config";
 
@@ -99,7 +98,6 @@ export default function AccountForm({ user }) {
     >
       {(form) => (
         <>
-          {/* First & Last Name */}
           <Stack
             direction={{ base: "column", md: "row" }}
             gap={{ base: 0, md: 4 }}
@@ -148,7 +146,6 @@ export default function AccountForm({ user }) {
             </form.Field>
           </Stack>
 
-          {/* Email & Phone */}
           <Stack
             direction={{ base: "column", md: "row" }}
             gap={{ base: 0, md: 4 }}
@@ -208,7 +205,6 @@ export default function AccountForm({ user }) {
             </form.Field>
           </Stack>
 
-          {/* Age & Gender */}
           <Stack
             direction={{ base: "column", md: "row" }}
             gap={{ base: 0, md: 4 }}

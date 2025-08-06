@@ -12,7 +12,7 @@ import {
 import { PageWrapper } from "@/components/organisms";
 import { HeartHandshake, LockKeyhole, Sparkles } from "lucide-react";
 import { COMPANY_NAME } from "@/config";
-import { Button, Link } from "@/components/atoms";
+import { Link } from "@/components/atoms";
 
 const values = [
   {
@@ -51,7 +51,6 @@ export default function AboutPage() {
       mx="auto"
     >
       <Stack gap={{ base: 10, md: 12 }}>
-        {/* Hero Section */}
         <Box textAlign="center">
           <Heading as="h1" size="2xl" mb={4}>
             About{" "}
@@ -65,7 +64,6 @@ export default function AboutPage() {
           </Text>
         </Box>
 
-        {/* Mission Statement */}
         <Box>
           <Heading as="h2" size="lg" mb={3}>
             Our Mission
@@ -82,7 +80,6 @@ export default function AboutPage() {
           </Text>
         </Box>
 
-        {/* Values Section */}
         <Box>
           <Heading as="h2" size="lg" mb={6}>
             What We Stand For
@@ -98,7 +95,7 @@ export default function AboutPage() {
                 rounded="xl"
                 key={idx}
                 gridColumn={{
-                  base: "auto", // default on mobile
+                  base: "auto",
                   md: idx === 2 ? "span 2" : "auto",
                   lg: "auto",
                 }}
@@ -118,7 +115,6 @@ export default function AboutPage() {
           </SimpleGrid>
         </Box>
 
-        {/* Platform Capabilities */}
         <Box>
           <Heading as="h2" size="lg" mb={4}>
             Built for Couples, Backed by Technology
@@ -135,7 +131,6 @@ export default function AboutPage() {
           </Text>
         </Box>
 
-        {/* Closing */}
         <VStack textAlign="center">
           <Text textStyle="sm" color="gray.500">
             Thank you for choosing{" "}

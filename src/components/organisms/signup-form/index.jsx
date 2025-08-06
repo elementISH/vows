@@ -1,15 +1,14 @@
 "use client";
 
 import { z } from "zod";
-import { Box, HStack, Stack } from "@chakra-ui/react";
+import { Box, Stack } from "@chakra-ui/react";
 import { Divider, Input, Link } from "@/components/atoms";
 import { useState } from "react";
 import { CountrySelector, Form, SocialLogin } from "@/components/molecules";
 import { zodFieldValidator } from "@/utils/functions";
-import { redirect } from "next/navigation";
 import { useStore } from "@/store";
+import { useRouter } from "next/navigation";
 
-// Validation Schema
 const signupSchema = {
   first_name: z
     .string()
@@ -28,7 +27,6 @@ const signupSchema = {
     .min(8, { message: "Password must be at least 8 characters" }),
 };
 
-// Default Values
 const defaultValues = {
   first_name: "",
   last_name: "",
@@ -40,6 +38,7 @@ const defaultValues = {
 export default function SignupForm() {
   const [selectedCountryCode, setSelectedCountryCode] = useState("+20");
   const register = useStore.getState().register;
+  const router = useRouter();
 
   const handleSubmit = async ({ value }) => {
     let { phone } = value;
@@ -62,7 +61,7 @@ export default function SignupForm() {
     };
     const success = await register(finalPayload);
     if (success.success) {
-      redirect("/shop");
+      router.replace("/shop");
     }
   };
 
@@ -83,7 +82,6 @@ export default function SignupForm() {
       >
         {(form) => (
           <>
-            {/* First & Last Name */}
             <Stack
               gap={{ base: 2, sm: 4 }}
               w="full"
@@ -131,7 +129,6 @@ export default function SignupForm() {
               </form.Field>
             </Stack>
 
-            {/* Email */}
             <form.Field
               name="email"
               asyncDebounceMs={500}
@@ -152,8 +149,6 @@ export default function SignupForm() {
                 />
               )}
             </form.Field>
-
-            {/* Phone */}
             <form.Field
               name="phone"
               asyncDebounceMs={500}
@@ -182,8 +177,6 @@ export default function SignupForm() {
                 />
               )}
             </form.Field>
-
-            {/* Password */}
             <form.Field
               name="password"
               asyncDebounceMs={500}

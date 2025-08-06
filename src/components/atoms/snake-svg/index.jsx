@@ -1,11 +1,5 @@
 import { Box } from "@chakra-ui/react";
-/**
- * @typedef {import("@chakra-ui/react").BoxProps} BoxProps
- */
 
-/**
- * @param {BoxProps} props
- */
 export default function SnakeSvg({ ...props }) {
   return (
     <Box asChild {...props}>

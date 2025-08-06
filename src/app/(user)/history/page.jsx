@@ -1,5 +1,5 @@
 "use client";
-import { Button, Divider, Image, Link } from "@/components/atoms";
+import { Button, Image, Link } from "@/components/atoms";
 import { CardShell, Section } from "@/components/molecules";
 import { PageWrapper } from "@/components/organisms";
 import {
@@ -16,13 +16,7 @@ import {
   WrapItem,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import {
-  BadgeQuestionMark,
-  Info,
-  MapPinHouse,
-  RefreshCw,
-  Star,
-} from "lucide-react";
+import { BadgeQuestionMark, Info, RefreshCw, Star } from "lucide-react";
 import { useState } from "react";
 
 const orderStatusConfig = {
@@ -209,7 +203,6 @@ export default function HistoryPage() {
     <PageWrapper px={{ base: 4, sm: 4, md: 8 }}>
       <Section heading="Your Orders">
         <Stack gap={4} w={"full"}>
-          {/* Filter Chips Positioned Above Orders */}
           <Wrap justify="flex-start">
             {filters.map(({ label, count }) => {
               const isActive = activeFilter === label;
@@ -238,7 +231,6 @@ export default function HistoryPage() {
           </Wrap>
 
           <Flex gap={8} flexDir={{ base: "column", lg: "row" }} w="full">
-            {/* Order Card */}
             <VStack w={"full"} gap={4}>
               {filteredOrders.map((order) => (
                 <CardShell
@@ -381,7 +373,6 @@ export default function HistoryPage() {
                 </CardShell>
               ))}
             </VStack>
-            {/* Sidebar Help Box */}
             <Box
               bg="rose.50"
               rounded="2xl"
