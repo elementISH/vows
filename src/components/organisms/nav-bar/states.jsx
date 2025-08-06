@@ -1,8 +1,7 @@
 "use client";
-import { useState } from "react";
+import { useUserState } from "@/utils/hooks";
 
 export const useNavbarState = () => {
-  const [isAuthed, setIsAuthed] = useState(true);
-
-  return { isAuthed };
+  const { isAuthenticated, user, logout } = useUserState();
+  return { isAuthed: isAuthenticated, user, logout };
 };

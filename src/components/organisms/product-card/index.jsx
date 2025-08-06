@@ -21,6 +21,8 @@ import {
   Heading,
 } from "@/components/atoms";
 import { useState } from "react";
+import { useShopState } from "@/utils/hooks";
+import { toast } from "sonner";
 
 export default function ProductCard({
   id,
@@ -30,12 +32,33 @@ export default function ProductCard({
   sizes = [],
   price,
   originalPrice,
+  isWishlisted,
   imageProps = {},
 }) {
-  const [liked, setLiked] = useState(false);
+  const { addToWishlist, removeFromWishList } = useShopState();
+  const [wishlisted, setWishListed] = useState(isWishlisted || false);
   const [selectedColor, setSelectedColor] = useState(null);
 
-  const handleLike = () => setLiked(!liked);
+  const handleWishlist = async () => {
+    if (!id) return;
+
+    // Optimistically update the UI
+    const previousState = wishlisted;
+    setWishListed(!previousState);
+
+    try {
+      if (previousState) {
+        await removeFromWishList(id);
+      } else {
+        await addToWishlist(id);
+      }
+    } catch (error) {
+      // Rollback UI
+      setWishListed(previousState);
+      toast.error("Failed to update wishlist. Try again.");
+      console.error("Wishlist toggle failed:", error);
+    }
+  };
 
   const imageHeight = useBreakpointValue({
     base: "200px",
@@ -69,7 +92,7 @@ export default function ProductCard({
           />
         </Link>
         <Box position="absolute" bottom={2} left={2} zIndex={2}>
-          <WishlistButton onClick={handleLike} isFilled={liked} />
+          <WishlistButton onClick={handleWishlist} isFilled={wishlisted} />
         </Box>
 
         <Box
@@ -86,16 +109,25 @@ export default function ProductCard({
             WebkitBackdropFilter: "blur(10px)",
           }}
         >
-          <Link href={`/product/${id}`} textStyle="xs" fontWeight="bold">
+          <Link
+            href={`/product/${id}`}
+            textStyle="xs"
+            fontWeight="bold"
+            color="bg-color"
+          >
             View details
           </Link>
         </Box>
       </Box>
 
       <VStack gap={3} align="start" flex="1" p={4}>
-        <Heading size="sm" noOfLines={1}>
-          {title}
-        </Heading>
+        <Heading
+          heading={title}
+          headingStyles={{
+            size: "md",
+            noOfLines: 1,
+          }}
+        />
 
         <ColorSelector
           colors={colors}

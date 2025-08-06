@@ -72,7 +72,7 @@ export default function Footer() {
                 src={LANGUAGE_OPTIONS[0].icon}
                 alt={LANGUAGE_OPTIONS[0].label}
                 chakraProps={{ boxSize: 4, rounded: "sm" }}
-                nextProps={{ width: 20, height: 14 }}
+                nextProps={{ width: 20, height: 14, unoptimized: true }}
               />
             }
             switchAsSelect

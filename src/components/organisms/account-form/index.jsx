@@ -14,13 +14,14 @@ import { useState } from "react";
 import { CountrySelector, Form } from "@/components/molecules";
 import { toast } from "sonner";
 import { zodFieldValidator } from "@/utils/functions";
+import { COUNTRY_CODES } from "@/config";
 
 const accountSchema = {
-  firstName: z
+  first_name: z
     .string()
     .min(2, { message: "Please enter your first name" })
     .regex(/^[^\s]+$/, { message: "Only one first name is allowed" }),
-  lastName: z
+  last_name: z
     .string()
     .min(2, { message: "Please enter your last name" })
     .regex(/^[^\s]+$/, { message: "Only one last name is allowed" }),
@@ -47,37 +48,39 @@ const genderOptions = createListCollection({
   ],
 });
 
-const defaultValues = {
-  firstName: "",
-  lastName: "",
-  email: "",
-  phone: "",
-  age: null,
-};
-
-export default function AccountForm() {
-  const [selectedCountryCode, setSelectedCountryCode] = useState("+20");
+export default function AccountForm({ user }) {
+  const [selectedCountryCode, setSelectedCountryCode] = useState(
+    user?.country_code || "+93"
+  );
+  const defaultValues = {
+    first_name: user?.first_name || "",
+    last_name: user?.last_name || "",
+    email: user?.email || "",
+    phone: user?.phone || "",
+    age: user?.age || null,
+    gender: user?.gender ? [user?.gender] : [],
+  };
 
   const handleSubmit = async ({ value }) => {
     let { phone } = value;
     if (selectedCountryCode === "+20") {
       const egyptPattern = /^(?:\+?20)?0?(1[0125][0-9]{8})$/;
       const cleaned = phone.replace(/\D/g, "");
-
       const match = cleaned.match(egyptPattern);
       if (match) {
-        phone = `+20${match[1]}`;
-      } else {
-        return toast.error("Please check your phone number");
+        phone = `${match[1]}`;
       }
     } else {
       const cleaned = phone.replace(/\D/g, "");
-      phone = `${selectedCountryCode}${cleaned}`;
+      phone = `${cleaned}`;
     }
 
-    const finalPayload = { ...value, phone };
-    console.log("Final normalized account payload:", finalPayload);
-    // TODO: submit to backend
+    const finalPayload = {
+      ...value,
+      phone,
+      country_code: selectedCountryCode,
+    };
+    console.log(finalPayload);
   };
 
   return (
@@ -103,11 +106,11 @@ export default function AccountForm() {
             w="full"
           >
             <form.Field
-              name="firstName"
+              name="first_name"
               asyncDebounceMs={500}
               validators={{
                 onChangeAsync: ({ value }) => {
-                  return zodFieldValidator(accountSchema.firstName, value);
+                  return zodFieldValidator(accountSchema.first_name, value);
                 },
               }}
             >
@@ -124,11 +127,11 @@ export default function AccountForm() {
               )}
             </form.Field>
             <form.Field
-              name="lastName"
+              name="last_name"
               asyncDebounceMs={500}
               validators={{
                 onChangeAsync: ({ value }) => {
-                  return zodFieldValidator(accountSchema.lastName, value);
+                  return zodFieldValidator(accountSchema.last_name, value);
                 },
               }}
             >
@@ -195,6 +198,11 @@ export default function AccountForm() {
                   onChange={(code) => {
                     setSelectedCountryCode(code.items[0].dial_code);
                   }}
+                  defaultCode={
+                    COUNTRY_CODES.find(
+                      (country) => country.dial_code == selectedCountryCode
+                    ).code
+                  }
                 />
               )}
             </form.Field>

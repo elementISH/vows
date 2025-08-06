@@ -4,11 +4,13 @@ import { z } from "zod";
 import { HStack, VStack, Box, Stack } from "@chakra-ui/react";
 import { Divider, Input, Link } from "@/components/atoms";
 import { Form, SocialLogin } from "@/components/molecules";
+import { useStore } from "@/store";
+import { redirect } from "next/navigation";
 
 // 1. Validation schema using Zod
 const loginSchema = z.object({
   email: z.string().email({ message: "Enter a valid email" }),
-  password: z.string().min(6, { message: "Minimum 6 characters required" }),
+  password: z.string().min(8, { message: "Minimum 8 characters required" }),
 });
 
 // 2. Default values
@@ -19,9 +21,13 @@ const defaultValues = {
 
 export default function LoginForm() {
   // 3. Form submit handler
+  const login = useStore.getState().login;
+
   const handleSubmit = async ({ value }) => {
-    console.log("Logging in with", value);
-    // TODO: Add login logic (e.g., API call)
+    const success = await login(value);
+    if (success.success) {
+      redirect("/shop");
+    }
   };
 
   return (
@@ -35,11 +41,9 @@ export default function LoginForm() {
           },
         }}
         wrapperStyles={{
-          gap: 6,
           w: "100%",
           display: "flex",
           flexDirection: "column",
-          gap: 16,
         }}
         submitText="Sign In"
       >
@@ -49,8 +53,10 @@ export default function LoginForm() {
             <form.Field name="email">
               {(field) => (
                 <Input
+                  canError
                   label="Email"
                   name="email"
+                  helperText="Your account email"
                   placeholder="you@example.com"
                   field={field}
                   rounded="xl"
@@ -63,8 +69,10 @@ export default function LoginForm() {
               {(field) => (
                 <>
                   <Input
+                    canError
                     label="Password"
                     name="password"
+                    helperText="Your account password"
                     placeholder="••••••••"
                     isPassword
                     field={field}
@@ -77,6 +85,7 @@ export default function LoginForm() {
               direction={{ base: "column-reverse", sm: "row" }}
               w={"full"}
               justifyContent={"space-between"}
+              mb={2}
             >
               <Box textStyle={"sm"}>
                 Don&apos;t have an account?{" "}

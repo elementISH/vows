@@ -227,7 +227,7 @@ export default function CustomizationPanel({ maxImages = 3 }) {
                         <Image
                           src={pattern.imageUrl}
                           alt={pattern.label}
-                          nextProps={{ fill: true }}
+                          nextProps={{ fill: true, unoptimized: true }}
                           chakraProps={{ objectFit: "cover" }}
                         />
                         {selectedPattern === pattern.id && (

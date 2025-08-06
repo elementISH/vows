@@ -65,13 +65,19 @@ export default function Slider({
           >
             {action}
             {showButtons && (
-              <SliderButtons
-                scrollPrev={scrollPrev}
-                scrollNext={scrollNext}
-                prevDisabled={prevDisabled}
-                nextDisabled={nextDisabled}
-                direction={direction}
-              />
+              <Flex
+                direction={direction === "rtl" ? "row" : "row-reverse"}
+                align="center"
+                gap={2}
+              >
+                <SliderButtons
+                  scrollPrev={scrollPrev}
+                  scrollNext={scrollNext}
+                  prevDisabled={prevDisabled}
+                  nextDisabled={nextDisabled}
+                  direction={direction}
+                />
+              </Flex>
             )}
           </Flex>
         </Flex>

@@ -21,6 +21,7 @@ export default function RootLayout({ children }) {
             position="top-right"
             richColors
             toastOptions={{ style: { marginTop: "3.25rem" } }}
+            closeButton
           />
           <NavigationGuardProvider>
             <NavBar />

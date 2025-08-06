@@ -1,15 +1,18 @@
 "use client";
 import { Button, GoogleIcon } from "@/components/atoms";
+import { useStore } from "@/store";
 import { googleAuth } from "@/utils/functions";
 import { toast } from "sonner";
 export default function GoogleLoginButton() {
   const handleLogin = async () => {
-    const { idToken, error } = await googleAuth();
+    const { idToken } = await googleAuth();
+    const login = useStore.getState().login;
 
     if (idToken) {
-      console.log("Google ID Token:", idToken);
-      toast.success("Signed in successfully!");
-      // You can now forward this token to your backend
+      const success = await login({ token: idToken }, "google");
+      if (success.success) {
+        redirect("/shop");
+      }
       return;
     }
   };

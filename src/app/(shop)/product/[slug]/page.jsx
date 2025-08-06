@@ -9,8 +9,10 @@ import {
 } from "@/components/organisms";
 import { Box, Flex, HStack, VStack } from "@chakra-ui/react";
 import { ArrowRight } from "lucide-react";
+import { use } from "react";
 
-export default function ProductPage() {
+export default function ProductPage({ params }) {
+  const { slug } = use(params);
   return (
     <PageWrapper px={{ base: 4, sm: 4, md: 8 }} position={"relative"}>
       <Section wrapperStyles={{ py: { base: 8, md: 12 } }}>

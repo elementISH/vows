@@ -1,5 +1,7 @@
 export const COMPANY_NAME = "Vows";
 export const COMPANY_DOMAIN = "test.com";
+export const API_BASE_URL = "https://tempdevenvb.ticket-tribe.com/api/v1";
+
 export const ROUTES = [
   { name: "Home", path: "/" },
   { name: "Shop", path: "/shop" },

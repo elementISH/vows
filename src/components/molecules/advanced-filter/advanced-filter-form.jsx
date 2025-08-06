@@ -113,17 +113,17 @@ export default function AdvancedFilterForm() {
                       <HStack>
                         <Text fontWeight="bold">Categories</Text>
                         {categories?.length > 0 && (
-                          <span
-                            variant="ghost"
-                            size="xs"
-                            px={2}
+                          <Box
+                            as="span"
                             onClick={(e) => {
                               e.stopPropagation();
                               form.setFieldValue("categories", []);
                             }}
+                            cursor={"pointer"}
+                            color="rose.500"
                           >
                             - Clear
-                          </span>
+                          </Box>
                         )}
                       </HStack>
                       <Collapsible.Context>
@@ -191,17 +191,17 @@ export default function AdvancedFilterForm() {
                       <HStack>
                         <Text fontWeight="bold">Sub categories</Text>
                         {subcategories?.length > 0 && (
-                          <span
-                            variant="ghost"
-                            size="xs"
-                            px={2}
+                          <Box
+                            as="span"
                             onClick={(e) => {
                               e.stopPropagation();
                               form.setFieldValue("subcategories", []);
                             }}
+                            cursor={"pointer"}
+                            color="rose.500"
                           >
                             - Clear
-                          </span>
+                          </Box>
                         )}
                       </HStack>
                       <Collapsible.Context>
@@ -268,17 +268,17 @@ export default function AdvancedFilterForm() {
                       <HStack>
                         <Text fontWeight="bold">Color</Text>
                         {color?.length > 0 && (
-                          <span
-                            variant="ghost"
-                            size="xs"
-                            px={2}
+                          <Box
+                            as="span"
                             onClick={(e) => {
                               e.stopPropagation();
                               form.setFieldValue("color", []);
                             }}
+                            cursor={"pointer"}
+                            color="rose.500"
                           >
                             - Clear
-                          </span>
+                          </Box>
                         )}
                       </HStack>
                       <Collapsible.Context>
@@ -412,17 +412,17 @@ export default function AdvancedFilterForm() {
                       Rating
                     </Text>
                     {rating && rating > 0 && (
-                      <span
-                        variant="ghost"
-                        size="xs"
-                        px={2}
+                      <Box
+                        as="span"
                         onClick={(e) => {
                           e.stopPropagation();
                           form.setFieldValue("rating", "");
                         }}
+                        cursor={"pointer"}
+                        color="rose.500"
                       >
                         - Clear
-                      </span>
+                      </Box>
                     )}
                   </HStack>
                 )}
@@ -440,6 +440,7 @@ export default function AdvancedFilterForm() {
                             as="button"
                             key={i}
                             type="button"
+                            cursor={"pointer"}
                             onClick={() =>
                               field.handleChange(starValue.toString())
                             }
@@ -510,17 +511,17 @@ export default function AdvancedFilterForm() {
                       Sort By
                     </Text>
                     {sort?.length > 0 && (
-                      <span
-                        variant="ghost"
-                        size="xs"
-                        px={2}
+                      <Box
+                        as="span"
                         onClick={(e) => {
                           e.stopPropagation();
                           form.setFieldValue("sort", []);
                         }}
+                        cursor={"pointer"}
+                        color="rose.500"
                       >
                         - Clear
-                      </span>
+                      </Box>
                     )}
                   </HStack>
                 )}

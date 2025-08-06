@@ -6,14 +6,16 @@ import { Divider, Input, Link } from "@/components/atoms";
 import { useState } from "react";
 import { CountrySelector, Form, SocialLogin } from "@/components/molecules";
 import { zodFieldValidator } from "@/utils/functions";
+import { redirect } from "next/navigation";
+import { useStore } from "@/store";
 
 // Validation Schema
 const signupSchema = {
-  firstName: z
+  first_name: z
     .string()
     .min(2, { message: "Please enter your first name" })
     .regex(/^[^\s]+$/, { message: "Only one first name is allowed" }),
-  lastName: z
+  last_name: z
     .string()
     .min(2, { message: "Please enter your last name" })
     .regex(/^[^\s]+$/, { message: "Only one last name is allowed" }),
@@ -23,13 +25,13 @@ const signupSchema = {
   }),
   password: z
     .string()
-    .min(6, { message: "Password must be at least 6 characters" }),
+    .min(8, { message: "Password must be at least 8 characters" }),
 };
 
 // Default Values
 const defaultValues = {
-  firstName: "",
-  lastName: "",
+  first_name: "",
+  last_name: "",
   email: "",
   phone: "",
   password: "",
@@ -37,29 +39,31 @@ const defaultValues = {
 
 export default function SignupForm() {
   const [selectedCountryCode, setSelectedCountryCode] = useState("+20");
+  const register = useStore.getState().register;
+
   const handleSubmit = async ({ value }) => {
     let { phone } = value;
     if (selectedCountryCode === "+20") {
       const egyptPattern = /^(?:\+?20)?0?(1[0125][0-9]{8})$/;
       const cleaned = phone.replace(/\D/g, "");
-
       const match = cleaned.match(egyptPattern);
-
       if (match) {
-        phone = `+20${match[1]}`;
+        phone = `${match[1]}`;
       }
     } else {
       const cleaned = phone.replace(/\D/g, "");
-      phone = `${selectedCountryCode}${cleaned}`;
+      phone = `${cleaned}`;
     }
 
     const finalPayload = {
       ...value,
       phone,
+      country_code: selectedCountryCode,
     };
-
-    console.log("Final normalized signup payload:", finalPayload);
-    // TODO: Submit to backend
+    const success = await register(finalPayload);
+    if (success.success) {
+      redirect("/shop");
+    }
   };
 
   return (
@@ -86,11 +90,11 @@ export default function SignupForm() {
               direction={{ base: "column", sm: "row" }}
             >
               <form.Field
-                name="firstName"
+                name="first_name"
                 asyncDebounceMs={500}
                 validators={{
                   onChangeAsync: ({ value }) => {
-                    return zodFieldValidator(signupSchema.firstName, value);
+                    return zodFieldValidator(signupSchema.first_name, value);
                   },
                 }}
               >
@@ -106,11 +110,11 @@ export default function SignupForm() {
                 )}
               </form.Field>
               <form.Field
-                name="lastName"
+                name="last_name"
                 asyncDebounceMs={500}
                 validators={{
                   onChangeAsync: ({ value }) => {
-                    return zodFieldValidator(signupSchema.lastName, value);
+                    return zodFieldValidator(signupSchema.last_name, value);
                   },
                 }}
               >
@@ -196,7 +200,7 @@ export default function SignupForm() {
                   placeholder="••••••••"
                   isPassword
                   field={field}
-                  helperText="Minimum 6 characters"
+                  helperText="Minimum 8 characters"
                   rounded="xl"
                 />
               )}

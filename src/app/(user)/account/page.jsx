@@ -8,6 +8,7 @@ import {
   Slider,
 } from "@/components/molecules";
 import { AccountForm, PageWrapper, ProductCard } from "@/components/organisms";
+import { useUserState } from "@/utils/hooks";
 import { Box, Flex, Stack, Text, VStack } from "@chakra-ui/react";
 import { ArrowRight, Crosshair, Share2 } from "lucide-react";
 import { useState } from "react";
@@ -17,7 +18,7 @@ export default function AccountPage() {
   const [selectedId, setSelectedId] = useState(null);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editAddress, setEditAddress] = useState(null);
-
+  const { isAuthenticated, user } = useUserState();
   const handleAdd = () => {
     setEditAddress(null);
     setDialogOpen(true);
@@ -49,11 +50,12 @@ export default function AccountPage() {
   const handleDelete = (id) => {
     setAddresses((prev) => prev.filter((a) => a.id !== id));
   };
-
+  console.log(user);
+  const name = user?.first_name + " " + user?.last_name;
   return (
     <PageWrapper px={{ base: 4, sm: 4, md: 8 }}>
       <Section
-        heading="Hello, John Doe"
+        heading={`Hello, ${name}`}
         subheading="Track orders, update details and manage everything!"
         wrapperStyles={{ gap: 8 }}
       >
@@ -66,7 +68,7 @@ export default function AccountPage() {
             wrap="wrap"
           >
             <Box flex={1} w="full">
-              <AccountForm />
+              <AccountForm user={user} />
             </Box>
 
             <Stack

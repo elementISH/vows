@@ -20,9 +20,9 @@ const collection = createListCollection({
   itemToValue: (item) => item.code, // Used for controlled value matching
 });
 
-function CountrySelect({ onChange }) {
+function CountrySelect({ onChange, defaultCode }) {
   const [value, setValue] = useState([
-    defaultCountry?.code || COUNTRY_CODES[0].code,
+    defaultCode || defaultCountry?.code || COUNTRY_CODES[0].code,
   ]);
 
   const handleChange = (e) => {
@@ -70,18 +70,17 @@ function CountrySelect({ onChange }) {
   );
 }
 
-export default function CountrySelector({ inputProps, onChange }) {
+export default function CountrySelector({ inputProps, onChange, defaultCode }) {
   const [selectedCode, setSelectedCode] = useState([
-    defaultCountry?.code || COUNTRY_CODES[0].code,
+    defaultCode || defaultCountry?.code || COUNTRY_CODES[0].code,
   ]);
-
   const selectedCountry = COUNTRY_CODES.find((c) => c.code === selectedCode[0]);
 
   return (
     <Input
-      ps={12}
+      ps={14}
       name="phone"
-      type="tel"
+      type="number"
       placeholder="10 123 4567"
       id="phoneInput"
       startElementProps={{
@@ -99,6 +98,7 @@ export default function CountrySelector({ inputProps, onChange }) {
             setSelectedCode(e.value);
             onChange?.(e);
           }}
+          defaultCode={defaultCode}
         />
       }
       endElementProps={{ px: 0 }}

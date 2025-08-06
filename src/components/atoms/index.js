@@ -21,6 +21,6 @@ export { default as MetaIcon } from "./meta-icon";
 export { default as Tooltip } from "./tooltip";
 export { default as QuantitySelector } from "./quantity-selector";
 export { default as FormatColor } from "./format-color";
-export { default as GoogleSocialAuth } from './google-social-auth';
-export { default as SizeChart } from './size-chart';
+export { default as GoogleSocialAuth } from "./google-social-auth";
+export { default as SizeChart } from "./size-chart";
 // PLUG_ADD_EXPORT

@@ -1,9 +1,6 @@
+"use client";
 import { useEffect, useRef } from "react";
 
-/**
- * Calls handler when attempting to leave the page.
- * @param {() => boolean} shouldBlock - Function that returns whether to block navigation
- */
 export default function useBeforeUnload(shouldBlock) {
   const shouldBlockRef = useRef(shouldBlock);
 

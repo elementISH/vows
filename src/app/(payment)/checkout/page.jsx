@@ -358,7 +358,7 @@ export default function CheckoutPage() {
                         filter: "grayscale(100) contrast(0.5)",
                       }}
                       alt={alt}
-                      nextProps={{ width: 600, height: 600 }}
+                      nextProps={{ width: 600, height: 600, unoptimized: true }}
                     />
                   ))}
                   <Text

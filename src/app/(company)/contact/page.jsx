@@ -20,11 +20,11 @@ import { Mail } from "lucide-react";
 import { zodFieldValidator } from "@/utils/functions";
 // Validation Schema
 const contactSchema = {
-  firstName: z
+  first_name: z
     .string()
     .min(2, { message: "Please enter your first name" })
     .regex(/^[^\s]+$/, { message: "Only one first name is allowed" }),
-  lastName: z
+  last_name: z
     .string()
     .min(2, { message: "Please enter your last name" })
     .regex(/^[^\s]+$/, { message: "Only one last name is allowed" }),
@@ -39,8 +39,8 @@ const contactSchema = {
 };
 
 const defaultValues = {
-  firstName: "",
-  lastName: "",
+  first_name: "",
+  last_name: "",
   email: "",
   phone: "",
   message: "",
@@ -102,12 +102,12 @@ export default function ContactPage() {
                     direction={{ base: "column", sm: "row" }}
                   >
                     <form.Field
-                      name="firstName"
+                      name="first_name"
                       asyncDebounceMs={500}
                       validators={{
                         onChangeAsync: ({ value }) => {
                           return zodFieldValidator(
-                            contactSchema.firstName,
+                            contactSchema.first_name,
                             value
                           );
                         },
@@ -125,12 +125,12 @@ export default function ContactPage() {
                     </form.Field>
 
                     <form.Field
-                      name="lastName"
+                      name="last_name"
                       asyncDebounceMs={500}
                       validators={{
                         onChangeAsync: ({ value }) => {
                           return zodFieldValidator(
-                            contactSchema.lastName,
+                            contactSchema.last_name,
                             value
                           );
                         },

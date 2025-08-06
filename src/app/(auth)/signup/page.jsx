@@ -1,13 +1,20 @@
-import { Heading, Link } from "@/components/atoms";
+"use client";
+import { Heading } from "@/components/atoms";
 import { PageWrapper, SignupForm } from "@/components/organisms";
 import { COMPANY_NAME } from "@/config";
+import { useUserState } from "@/utils/hooks";
 import { Box, VStack } from "@chakra-ui/react";
-import Script from "next/script";
+import { redirect } from "next/navigation";
 
 export default function SignUpPage() {
   const backgroundGradient = `
  linear-gradient(to right, #FBE9E7 0%, 26.610645651817322%, #F4CBC5 53.221291303634644%, 76.61064565181732%, #FAE7E3 100%);
 `;
+  const { isAuthenticated } = useUserState();
+  if (isAuthenticated) {
+    redirect("/shop");
+    return;
+  }
   return (
     <>
       <PageWrapper alignItems="center">
